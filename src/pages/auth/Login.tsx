@@ -1,0 +1,191 @@
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Eye, EyeOff, Lock, Mail } from "lucide-react";
+import { useAuth } from "../../hooks/useAuth";
+
+import { loginUser } from "../../services/auth.api";
+
+import { loginSchema, type LoginFormData } from "../../schemas/auth.schema";
+
+const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { setAuth } = useAuth();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const onSubmit = async (data: LoginFormData) => {
+    try {
+      setIsLoading(true);
+
+      console.log("Login data:", data);
+
+      const response = await loginUser(data);
+      setAuth(response.data.user, response.data.accessToken);
+
+      console.log("Login successful:", response);
+    } catch (error) {
+      console.error("Login failed:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = () => {
+    console.log("Google login");
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4">
+      <div className="w-full max-w-md">
+        {/* Logo / Brand */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-slate-900">AI Treasurer</h1>
+
+          <p className="mt-2 text-sm text-slate-500">
+            Smart bookkeeping for your business
+          </p>
+        </div>
+
+        {/* Login Card */}
+        <div className="bg-white border border-slate-200 rounded-2xl shadow-sm p-8">
+          {/* Heading */}
+          <div className="mb-7">
+            <h2 className="text-2xl font-semibold text-slate-900">
+              Welcome back
+            </h2>
+
+            <p className="mt-2 text-sm text-slate-500">
+              Sign in to manage your business finances.
+            </p>
+          </div>
+
+          {/* Login Form */}
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+            {/* Email */}
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-slate-700 mb-2"
+              >
+                Email
+              </label>
+
+              <div className="relative">
+                <Mail
+                  size={18}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                />
+
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="you@example.com"
+                  {...register("email")}
+                  className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
+                />
+              </div>
+
+              {errors.email && (
+                <p className="mt-1.5 text-xs text-red-500">
+                  {errors.email.message}
+                </p>
+              )}
+            </div>
+
+            {/* Password */}
+            <div>
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-slate-700 mb-2"
+              >
+                Password
+              </label>
+
+              <div className="relative">
+                <Lock
+                  size={18}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                />
+
+                <input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your password"
+                  {...register("password")}
+                  className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-10 pr-11 text-sm outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
+                />
+
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+
+              {errors.password && (
+                <p className="mt-1.5 text-xs text-red-500">
+                  {errors.password.message}
+                </p>
+              )}
+            </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full rounded-lg bg-emerald-600 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {isLoading ? "Signing in..." : "Sign In"}
+            </button>
+          </form>
+
+          {/* Divider */}
+          <div className="flex items-center gap-3 my-6">
+            <div className="h-px flex-1 bg-slate-200" />
+
+            <span className="text-xs text-slate-400">OR</span>
+
+            <div className="h-px flex-1 bg-slate-200" />
+          </div>
+
+          {/* Google Login */}
+          <button
+            type="button"
+            onClick={handleGoogleLogin}
+            className="w-full flex items-center justify-center gap-3 rounded-lg border border-slate-300 bg-white py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+          >
+            <span className="font-bold text-base">G</span>
+            Continue with Google
+          </button>
+
+          {/* Register */}
+          <p className="mt-7 text-center text-sm text-slate-500">
+            Don't have an account?{" "}
+            <a
+              href="/register"
+              className="font-medium text-emerald-600 hover:text-emerald-700"
+            >
+              Create account
+            </a>
+          </p>
+        </div>
+
+        {/* Footer */}
+        <p className="mt-6 text-center text-xs text-slate-400">
+          © 2026 AI Treasurer. All rights reserved.
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default Login;
