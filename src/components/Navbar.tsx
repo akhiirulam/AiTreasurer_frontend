@@ -19,7 +19,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="w-full px-3 pt-1 font-mono sticky top-1 z-50">
+    <nav className="w-full px-3 pt-1 sticky top-1 z-50">
       <div className="relative flex h-14 w-full items-center rounded-xl bg-[#292727] px-4 sm:px-5">
         {/* Logo */}
         <NavLink
@@ -39,7 +39,10 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <div className="ml-auto hidden items-center gap-6 text-sm text-white sm:gap-8 md:flex">
-          <a href="/#home" className="transition hover:text-[#79ff70]">
+          <a
+            href="/#home"
+            className="transition hover:text-[#79ff70] text-base"
+          >
             Home
           </a>
 
@@ -47,14 +50,17 @@ const Navbar = () => {
             to="/about"
             className={({ isActive }) =>
               `transition ${
-                isActive ? "text-[#79ff70]" : "hover:text-[#79ff70]"
+                isActive ? "text-[#79ff70]" : "hover:text-[#79ff70] text-base"
               }`
             }
           >
             About Us
           </NavLink>
 
-          <a href="/#how-it-works" className="transition hover:text-[#79ff70]">
+          <a
+            href="/#how-it-works"
+            className="transition hover:text-[#79ff70] text-base"
+          >
             How it Works
           </a>
 
@@ -62,7 +68,7 @@ const Navbar = () => {
             to="/login"
             className={({ isActive }) =>
               `font-bold transition ${
-                isActive ? "text-[#79ff70]" : "hover:text-[#79ff70]"
+                isActive ? "text-[#79ff70]" : "hover:text-[#79ff70] text-base"
               }`
             }
           >

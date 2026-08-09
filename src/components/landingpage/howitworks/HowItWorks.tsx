@@ -2,6 +2,13 @@ import { useState } from "react";
 import { MessageSquareText, Brain, Database, BarChart3 } from "lucide-react";
 import { ChevronDown } from "lucide-react";
 
+const languages = [
+  { value: "en", label: "English" },
+  { value: "ml", label: "മലയാളം" },
+  { value: "ta", label: "தமிழ்" },
+  { value: "hi", label: "हिन्दी" },
+];
+
 const translations = {
   en: {
     label: "How it works",
@@ -158,8 +165,16 @@ type Language = keyof typeof translations;
 
 const HowItWorks = () => {
   const [language, setLanguage] = useState<Language>("en");
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleLanguageChange = (value: Language) => {
+    setLanguage(value);
+    setIsOpen(false);
+  };
 
   const content = translations[language];
+
+  const selectedLanguage = languages.find((item) => item.value === language);
 
   return (
     <section
@@ -168,23 +183,49 @@ const HowItWorks = () => {
     >
       <div className="w-full rounded-xl bg-[#ECFFE8] px-6 py-12 sm:px-8 md:px-12 lg:px-16">
         {/* Language Selector */}
-        <div className="mb-8 flex justify-center sm:mb-10 sm:justify-end">
-          <div className="relative w-full max-w-[180px] sm:max-w-[200px]">
-            <select
-              value={language}
-              onChange={(e) => setLanguage(e.target.value as Language)}
-              className="w-full appearance-none rounded-xl border border-gray-300 bg-[#292727] text-white px-4 py-2.5 pr-10 text-sm outline-none sm:px-5 sm:py-3 sm:pr-12 sm:text-base"
+        <div className="relative mb-12 flex w-full justify-end">
+          <div className="relative w-[180px] sm:w-[200px]">
+            <button
+              type="button"
+              onClick={() => setIsOpen((prev) => !prev)}
+              className={`flex w-full items-center justify-between rounded-xl border px-4 py-2.5 text-sm outline-none transition-all duration-200 sm:px-5 sm:py-3 sm:text-base ${
+                isOpen
+                  ? "border-gray-900 bg-[#f5ffc2] text-gray-900"
+                  : "border-gray-700 bg-white text-black"
+              }`}
             >
-              <option value="en">English</option>
-              <option value="ml">മലയാളം</option>
-              <option value="ta">தமிழ்</option>
-              <option value="hi">हिन्दी</option>
-            </select>
+              <span>{selectedLanguage?.label}</span>
 
-            <ChevronDown
-              size={18}
-              className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-900 sm:right-4"
-            />
+              <ChevronDown
+                size={18}
+                className={`shrink-0 transition-transform duration-200 ${
+                  isOpen ? "rotate-180 text-gray-900" : "text-black"
+                }`}
+              />
+            </button>
+            {/* Options */}
+            <div
+              className={`absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-xl border border-gray-300 bg-white shadow-lg transition-all duration-200 ${
+                isOpen
+                  ? "visible translate-y-0 opacity-100"
+                  : "invisible -translate-y-2 opacity-0"
+              }`}
+            >
+              {languages.map((item) => (
+                <button
+                  key={item.value}
+                  type="button"
+                  onClick={() => handleLanguageChange(item.value as Language)}
+                  className={`w-full px-4 py-3 text-left text-sm transition sm:px-5 sm:text-base ${
+                    language === item.value
+                      ? "bg-[#f5ffc2] font-semibold text-gray-900"
+                      : "text-gray-700 hover:bg-gray-100"
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -234,8 +275,16 @@ const HowItWorks = () => {
             );
           })}
         </div>
-        <div className="mx-auto mt-8 max-w-7xl">
-          <div className="aspect-video w-full rounded-2xl bg-gray-200"></div>
+        <div className="mx-auto mt-8 max-w-5xl">
+          <div className="relative aspect-video w-full overflow-hidden rounded-2xl">
+            <iframe
+              className="absolute inset-0 h-full w-full"
+              src="https://www.youtube.com/embed/3z7q_aWwzjw"
+              title="AI Treasurer Introduction"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          </div>
         </div>
       </div>
     </section>
