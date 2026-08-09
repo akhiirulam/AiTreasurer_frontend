@@ -33,6 +33,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setAccessToken(accessToken);
   };
 
+  console.log("user: ", user);
+
   const clearAuth = () => {
     setUser(null);
     setAccessToken(null);
