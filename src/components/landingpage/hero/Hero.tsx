@@ -23,7 +23,7 @@ const Hero = () => {
   const value = values[currentIndex];
 
   return (
-    <section className="w-full px-3 pt-2 font-mono">
+    <section id="home" className="w-full px-3 pt-2 font-mono sm:pt-4 md:pt-6 ">
       <div className="relative flex min-h-[550px] w-full flex-col items-center justify-center rounded-xl bg-[#ECFFE8] px-6 py-12 sm:px-8 md:min-h-[600px] lg:min-h-[350px] lg:flex-row lg:px-12 xl:px-16">
         {/* LEFT SIDE */}
         <div className="flex w-full flex-col items-center text-center lg:w-1/2 lg:items-start lg:text-left">
@@ -36,7 +36,7 @@ const Hero = () => {
             with AI-powered bookkeeping.
           </p>
 
-          <button className="mt-8 rounded-lg bg-[#79ff70] px-6 py-3 text-sm font-bold transition hover:bg-[#65eb5c] sm:px-8 sm:py-3.5">
+          <button className="mt-8 rounded-lg bg-[#292727] text-white px-6 py-3 text-sm font-bold transition hover:bg-[#65eb5c] sm:px-8 sm:py-3.5">
             Get Started
           </button>
         </div>
@@ -50,7 +50,7 @@ const Hero = () => {
             </span>
 
             {/* Counter */}
-            <div className="mt-2 text-5xl font-bold text-gray-900 sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl">
+            <div className="mt-2 text-5xl font-bold text-gray-900 sm:text-6xl md:text-7xl lg:text-6xl xl:text-8xl">
               <NumberFlow
                 value={value.amount}
                 trend={0}
