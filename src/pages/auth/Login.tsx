@@ -9,10 +9,13 @@ import { loginUser } from "../../services/auth.api";
 import { loginSchema, type LoginFormData } from "../../schemas/auth.schema";
 
 import loginImage from "../../assets/login-image.webp";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
   const { setAuth } = useAuth();
   const {
     register,
@@ -31,7 +34,13 @@ const Login = () => {
       const response = await loginUser(data);
       setAuth(response.data.user, response.data.accessToken);
 
-      console.log("Login successful:", response);
+      const role = response.data.data.user.role;
+
+      if (role === "admin") {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/dashboard");
+      }
     } catch (error) {
       console.error("Login failed:", error);
     } finally {
@@ -40,7 +49,7 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    console.log("Google login");
+    navigate("/google-login");
   };
 
   return (
