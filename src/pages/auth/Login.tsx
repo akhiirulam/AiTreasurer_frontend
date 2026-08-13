@@ -39,7 +39,7 @@ const Login = () => {
       if (role === "admin") {
         navigate("/admin/dashboard");
       } else {
-        navigate("/dashboard");
+        navigate("/owner/dashboard");
       }
     } catch (error) {
       console.error("Login failed:", error);

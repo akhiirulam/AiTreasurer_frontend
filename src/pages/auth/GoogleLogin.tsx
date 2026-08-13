@@ -30,7 +30,13 @@ const GoogleLogin = () => {
           const accessToken = result.data.data.accessToken;
           localStorage.setItem("accessToken", accessToken);
 
-          navigate("/dashboard");
+          const role = result.data.data.user.role;
+
+          if (role === "admin") {
+            navigate("/admin/dashboard");
+          } else {
+            navigate("/owner/dashboard");
+          }
         } catch (error: unknown) {
           if (axios.isAxiosError(error)) {
             console.error(
