@@ -29,12 +29,11 @@ const Login = () => {
     try {
       setIsLoading(true);
 
-      console.log("Login data:", data);
-
       const response = await loginUser(data);
       setAuth(response.data.user, response.data.accessToken);
+      console.log(response);
 
-      const role = response.data.data.user.role;
+      const role = response.data.user.role;
 
       if (role === "admin") {
         navigate("/admin/dashboard");

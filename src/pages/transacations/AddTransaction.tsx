@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ArrowLeft, Upload, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import createTransactionApi from "../../../services/transaction.api";
+import createTransactionApi from "../../services/transaction.api";
 
 const AddTransaction = () => {
   const navigate = useNavigate();

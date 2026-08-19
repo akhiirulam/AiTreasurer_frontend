@@ -31,6 +31,7 @@ const GoogleLogin = () => {
           localStorage.setItem("accessToken", accessToken);
 
           const role = result.data.data.user.role;
+          localStorage.setItem("userId", result.data.data.user.id);
 
           if (role === "admin") {
             navigate("/admin/dashboard");

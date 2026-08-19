@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 
 import logo from "../../../assets/aitreasurer-navbar-logo.webp";
 
 const OwnerNavbar = () => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const isLoggedIn = !!localStorage.getItem("userId");
 
   const closeMenu = () => {
     setOpen(false);
@@ -16,6 +19,13 @@ const OwnerNavbar = () => {
       behavior: "smooth",
       block: "start",
     });
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("userId");
+
+    closeMenu();
+    navigate("/");
   };
 
   return (
@@ -41,7 +51,7 @@ const OwnerNavbar = () => {
         <div className="ml-auto hidden items-center gap-6 text-sm text-white sm:gap-8 md:flex">
           <a
             href="/#home"
-            className="transition hover:text-[#79ff70] text-base"
+            className="text-base transition hover:text-[#79ff70]"
           >
             Home
           </a>
@@ -49,8 +59,8 @@ const OwnerNavbar = () => {
           <NavLink
             to="/about"
             className={({ isActive }) =>
-              `transition ${
-                isActive ? "text-[#79ff70]" : "hover:text-[#79ff70] text-base"
+              `text-base transition ${
+                isActive ? "text-[#79ff70]" : "hover:text-[#79ff70]"
               }`
             }
           >
@@ -59,21 +69,31 @@ const OwnerNavbar = () => {
 
           <a
             href="/#how-it-works"
-            className="transition hover:text-[#79ff70] text-base"
+            className="text-base transition hover:text-[#79ff70]"
           >
             How it Works
           </a>
 
-          <NavLink
-            to="/login"
-            className={({ isActive }) =>
-              `font-bold transition ${
-                isActive ? "text-[#79ff70]" : "hover:text-[#79ff70] text-base"
-              }`
-            }
-          >
-            Login
-          </NavLink>
+          {isLoggedIn ? (
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="text-base font-bold transition hover:text-[#79ff70]"
+            >
+              Logout
+            </button>
+          ) : (
+            <NavLink
+              to="/login"
+              className={({ isActive }) =>
+                `text-base font-bold transition ${
+                  isActive ? "text-[#79ff70]" : "hover:text-[#79ff70]"
+                }`
+              }
+            >
+              Login
+            </NavLink>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -126,17 +146,27 @@ const OwnerNavbar = () => {
                 How it Works
               </NavLink>
 
-              <NavLink
-                to="/login"
-                onClick={closeMenu}
-                className={({ isActive }) =>
-                  `font-bold transition ${
-                    isActive ? "text-[#79ff70]" : "hover:text-[#79ff70]"
-                  }`
-                }
-              >
-                Login
-              </NavLink>
+              {isLoggedIn ? (
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="text-left font-bold transition hover:text-[#79ff70]"
+                >
+                  Logout
+                </button>
+              ) : (
+                <NavLink
+                  to="/login"
+                  onClick={closeMenu}
+                  className={({ isActive }) =>
+                    `font-bold transition ${
+                      isActive ? "text-[#79ff70]" : "hover:text-[#79ff70]"
+                    }`
+                  }
+                >
+                  Login
+                </NavLink>
+              )}
             </div>
           </div>
         )}
