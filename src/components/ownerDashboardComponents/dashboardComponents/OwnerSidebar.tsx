@@ -10,49 +10,95 @@ import {
   Users,
   Truck,
   MessageCircle,
+  type LucideIcon,
 } from "lucide-react";
+
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
+
+// ==========================================
+// SIDEBAR TYPES
+// ==========================================
+
+interface SidebarItem {
+  label: string;
+  path: string;
+  icon: LucideIcon;
+}
+
+interface SidebarSection {
+  label: string;
+  items: SidebarItem[];
+}
+
+type MenuItem = SidebarItem | SidebarSection;
 
 const OwnerSidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
 
-  const menuItems = [
+  const menuItems: MenuItem[] = [
     {
       label: "Dashboard",
       path: "/dashboard",
       icon: LayoutDashboard,
     },
+
     {
       label: "Transactions",
       path: "/transactions",
       icon: BookOpen,
     },
+
+    // ==========================================
+    // ACCOUNTING
+    // ==========================================
+
+    {
+      label: "Accounting",
+      items: [
+        {
+          label: "Accounts",
+          path: "/accounts",
+          icon: BookOpen,
+        },
+        {
+          label: "Cash Book",
+          path: "/cash-book",
+          icon: BookOpen,
+        },
+      ],
+    },
+
     {
       label: "Customers",
       path: "/customers",
       icon: Users,
     },
+
     {
       label: "Suppliers",
       path: "/suppliers",
       icon: Truck,
     },
+
     {
       label: "Sales",
       path: "/sales",
       icon: ShoppingCart,
     },
+
     {
       label: "Reports",
       path: "/reports",
       icon: BarChart3,
     },
+
     {
       label: "AI Assistant",
       path: "/ai-assistant",
       icon: MessageCircle,
     },
+
     {
       label: "Settings",
       path: "/settings",
@@ -66,7 +112,10 @@ const OwnerSidebar = () => {
         collapsed ? "w-20" : "w-64"
       }`}
     >
-      {/* Toggle */}
+      {/* ==========================================
+          TOGGLE
+      ========================================== */}
+
       <div
         className={`flex h-16 items-center border-b border-slate-100 ${
           collapsed ? "justify-center" : "justify-end px-4"
@@ -81,34 +130,77 @@ const OwnerSidebar = () => {
         </button>
       </div>
 
-      {/* Navigation */}
+      {/* ==========================================
+          NAVIGATION
+      ========================================== */}
+
       <nav className="flex h-[calc(100vh-128px)] flex-col px-3 py-5">
         <div className="space-y-1">
           {menuItems.map((item) => {
-            const Icon = item.icon;
+            if ("path" in item) {
+              const Icon = item.icon;
+
+              return (
+                <NavLink
+                  key={item.path}
+                  to={item.path}
+                  title={collapsed ? item.label : undefined}
+                  className={({ isActive }) =>
+                    `group flex items-center rounded-lg px-3 py-2.5 text-sm font-medium transition ${
+                      isActive
+                        ? "bg-black text-white"
+                        : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                    } ${collapsed ? "justify-center" : "gap-3"}`
+                  }
+                >
+                  <Icon size={19} strokeWidth={1.8} />
+
+                  {!collapsed && <span>{item.label}</span>}
+                </NavLink>
+              );
+            }
 
             return (
-              <NavLink
-                key={item.path}
-                to={item.path}
-                title={collapsed ? item.label : undefined}
-                className={({ isActive }) =>
-                  `group flex items-center rounded-lg px-3 py-2.5 text-sm font-medium transition ${
-                    isActive
-                      ? "bg-black text-white"
-                      : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
-                  } ${collapsed ? "justify-center" : "gap-3"}`
-                }
-              >
-                <Icon size={19} strokeWidth={1.8} />
+              <div key={item.label} className="pt-3">
+                {!collapsed && (
+                  <p className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400">
+                    {item.label}
+                  </p>
+                )}
 
-                {!collapsed && <span>{item.label}</span>}
-              </NavLink>
+                <div className="space-y-1">
+                  {item.items.map((subItem) => {
+                    const Icon = subItem.icon;
+
+                    return (
+                      <NavLink
+                        key={subItem.path}
+                        to={subItem.path}
+                        title={collapsed ? subItem.label : undefined}
+                        className={({ isActive }) =>
+                          `group flex items-center rounded-lg px-3 py-2.5 text-sm font-medium transition ${
+                            isActive
+                              ? "bg-black text-white"
+                              : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                          } ${collapsed ? "justify-center" : "gap-3"}`
+                        }
+                      >
+                        <Icon size={19} strokeWidth={1.8} />
+
+                        {!collapsed && <span>{subItem.label}</span>}
+                      </NavLink>
+                    );
+                  })}
+                </div>
+              </div>
             );
           })}
         </div>
 
-        {/* Bottom */}
+        {/* ==========================================
+            BOTTOM
+        ========================================== */}
+
         <div className="mt-auto border-t border-slate-100 pt-4">
           <button
             type="button"

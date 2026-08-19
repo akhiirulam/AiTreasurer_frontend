@@ -10,6 +10,10 @@ import IncomeExpenseChart from "../pages/Dashboard/ownerDashboard/IncomeExpenseC
 import PartySummary from "../pages/Dashboard/ownerDashboard/PartySummary";
 import QuickActions from "../pages/Dashboard/ownerDashboard/QuickActions";
 import TransactionHistory from "../pages/transacations/TransactionHistory";
+import CashBook from "../pages/cashBook/CashBook";
+import Accounts from "../pages/accounting/Accounts";
+
+import AccountLedger from "../pages/accounting/AccountLedger";
 
 const AppRoutes = () => {
   return (
@@ -27,6 +31,9 @@ const AppRoutes = () => {
         <Route path="/partysummary" element={<PartySummary />} />
         <Route path="/quickActions" element={<QuickActions />} />
         <Route path="/transactions" element={<TransactionHistory />} />
+        <Route path="/cash-book" element={<CashBook />} />
+        <Route path="/accounts" element={<Accounts />} />
+        <Route path="/accounts/:accountId" element={<AccountLedger />} />
       </Route>
     </Routes>
   );
