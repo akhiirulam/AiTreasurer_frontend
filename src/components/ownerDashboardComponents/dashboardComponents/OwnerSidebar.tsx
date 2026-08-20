@@ -39,13 +39,13 @@ const OwnerSidebar = () => {
   const menuItems: MenuItem[] = [
     {
       label: "Dashboard",
-      path: "/dashboard",
+      path: "/owner/dashboard",
       icon: LayoutDashboard,
     },
 
     {
       label: "Transactions",
-      path: "/transactions",
+      path: "/owner/transactions",
       icon: BookOpen,
     },
 
@@ -58,12 +58,12 @@ const OwnerSidebar = () => {
       items: [
         {
           label: "Accounts",
-          path: "/accounts",
+          path: "/owner/accounts",
           icon: BookOpen,
         },
         {
           label: "Cash Book",
-          path: "/cash-book",
+          path: "/owner/cash-book",
           icon: BookOpen,
         },
       ],

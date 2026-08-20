@@ -63,7 +63,7 @@ const getAccounts = async () => {
     },
   });
 
-  return response.data;
+  return response.data.data;
 };
 
 const getAccountLedger = async (accountId: string) => {

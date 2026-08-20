@@ -82,7 +82,7 @@ const AccountLedger = () => {
       <div className="px-4 py-8 sm:px-6 lg:px-8">
         <button
           type="button"
-          onClick={() => navigate("/accounts")}
+          onClick={() => navigate("/owner/accounts")}
           className="mb-6 flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-950"
         >
           <ArrowLeft size={18} />
@@ -108,7 +108,7 @@ const AccountLedger = () => {
 
       <button
         type="button"
-        onClick={() => navigate("/accounts")}
+        onClick={() => navigate("/owner/accounts")}
         className="mb-6 flex items-center gap-2 text-sm font-medium text-slate-600 transition hover:text-slate-950"
       >
         <ArrowLeft size={18} />

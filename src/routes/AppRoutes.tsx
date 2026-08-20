@@ -25,15 +25,15 @@ const AppRoutes = () => {
       <Route path="/transactions/add" element={<AddTransaction />} />
 
       <Route element={<OwnerLayout />}>
-        <Route path="/dashboard" element={<OwnerDashboard />} />
+        <Route path="/owner/dashboard" element={<OwnerDashboard />} />
         <Route path="/financialsummary" element={<FinancialSummary />} />
         <Route path="/incomeexpensechart" element={<IncomeExpenseChart />} />
         <Route path="/partysummary" element={<PartySummary />} />
         <Route path="/quickActions" element={<QuickActions />} />
-        <Route path="/transactions" element={<TransactionHistory />} />
-        <Route path="/cash-book" element={<CashBook />} />
-        <Route path="/accounts" element={<Accounts />} />
-        <Route path="/accounts/:accountId" element={<AccountLedger />} />
+        <Route path="/owner/transactions" element={<TransactionHistory />} />
+        <Route path="/owner/cash-book" element={<CashBook />} />
+        <Route path="/owner/accounts" element={<Accounts />} />
+        <Route path="/owner/accounts/:accountId" element={<AccountLedger />} />
       </Route>
     </Routes>
   );

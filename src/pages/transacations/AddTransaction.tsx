@@ -37,7 +37,7 @@ const AddTransaction = () => {
 
       console.log("Transaction created:", result);
 
-      navigate("/dashboard");
+      navigate("/owner/dashboard");
     } catch (error) {
       console.error("Failed to create transaction:", error);
     } finally {
