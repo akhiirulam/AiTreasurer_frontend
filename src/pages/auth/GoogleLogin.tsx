@@ -1,10 +1,15 @@
 import { useEffect, useRef } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
+import api from "../../api/axios";
+import { useAuth } from "../../hooks/useAuth";
 
 const GoogleLogin = () => {
   const googleButtonRef = useRef<HTMLDivElement | null>(null);
+
   const navigate = useNavigate();
+
+  const { setAuth } = useAuth();
 
   useEffect(() => {
     if (!window.google || !googleButtonRef.current) {
@@ -16,34 +21,65 @@ const GoogleLogin = () => {
 
       callback: async (response: GoogleCredentialResponse) => {
         try {
-          const result = await axios.post(
-            "http://localhost:5500/api/auth/google",
-            {
-              credential: response.credential,
-            },
-            {
-              withCredentials: true,
-            },
-          );
+          // ==================================================
+          // GOOGLE LOGIN
+          // ==================================================
+
+          const result = await api.post("/auth/google", {
+            credential: response.credential,
+          });
 
           console.log("Google login successful:", result.data);
+
+          // ==================================================
+          // GET USER + ACCESS TOKEN
+          // ==================================================
+
+          const user = result.data.data.user;
+
           const accessToken = result.data.data.accessToken;
-          localStorage.setItem("accessToken", accessToken);
 
-          const role = result.data.data.user.role;
-          localStorage.setItem("userId", result.data.data.user.id);
+          // ==================================================
+          // STORE AUTHENTICATION
+          // ==================================================
+          //
+          // This updates:
+          //
+          // 1. AuthContext user
+          // 2. AuthContext accessToken
+          // 3. Axios accessToken
+          //
+          // ==================================================
 
-          if (role === "admin") {
+          setAuth(
+            {
+              id: user.id,
+              fullName: user.fullName,
+              email: user.email,
+              role: user.role,
+              profileImage: user.profileImage ?? null,
+            },
+            accessToken,
+          );
+
+          console.log("Authenticated Google user ID:", user.id);
+
+          // ==================================================
+          // NAVIGATION
+          // ==================================================
+
+          if (user.role === "admin") {
             navigate("/admin/dashboard");
           } else {
             navigate("/owner/dashboard");
           }
         } catch (error: unknown) {
-          if (axios.isAxiosError(error)) {
-            console.error(
-              "Google login failed:",
-              error.response?.data || error.message,
-            );
+          // ==================================================
+          // ERROR HANDLING
+          // ==================================================
+
+          if (error instanceof Error) {
+            console.error("Google login failed:", error.message);
           } else {
             console.error("Google login failed:", error);
           }
@@ -51,12 +87,16 @@ const GoogleLogin = () => {
       },
     });
 
+    // ==================================================
+    // RENDER GOOGLE BUTTON
+    // ==================================================
+
     window.google.accounts.id.renderButton(googleButtonRef.current, {
       theme: "outline",
       size: "large",
       width: 300,
     });
-  }, [navigate]);
+  }, [navigate, setAuth]);
 
   return <div ref={googleButtonRef}></div>;
 };

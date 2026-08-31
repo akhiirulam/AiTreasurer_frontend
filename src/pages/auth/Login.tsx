@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
 
 import { loginUser } from "../../services/auth.api";
+import api from "../../api/axios";
 
 import { loginSchema, type LoginFormData } from "../../schemas/auth.schema";
 
@@ -15,6 +16,8 @@ const Login = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const googleButtonRef = useRef<HTMLDivElement | null>(null);
 
   const { setAuth } = useAuth();
   const {
@@ -47,9 +50,51 @@ const Login = () => {
     }
   };
 
-  const handleGoogleLogin = () => {
-    navigate("/google-login");
-  };
+  useEffect(() => {
+    if (!window.google || !googleButtonRef.current) {
+      return;
+    }
+
+    window.google.accounts.id.initialize({
+      client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+
+      callback: async (response: GoogleCredentialResponse) => {
+        try {
+          const result = await api.post("/auth/google", {
+            credential: response.credential,
+          });
+
+          const user = result.data.data.user;
+          const accessToken = result.data.data.accessToken;
+
+          setAuth(
+            {
+              id: user.id,
+              fullName: user.fullName,
+              email: user.email,
+              role: user.role,
+              profileImage: user.profileImage ?? null,
+            },
+            accessToken,
+          );
+
+          if (user.role === "admin") {
+            navigate("/admin/dashboard");
+          } else {
+            navigate("/owner/dashboard");
+          }
+        } catch (error: unknown) {
+          console.error("Google login failed:", error);
+        }
+      },
+    });
+
+    window.google.accounts.id.renderButton(googleButtonRef.current, {
+      theme: "outline",
+      size: "large",
+      width: 300,
+    });
+  }, [navigate, setAuth]);
 
   return (
     <div className="min-h-screen w-full bg-[#f5ffc2] p-3 font-mono">
@@ -173,15 +218,10 @@ const Login = () => {
               </div>
 
               {/* Google Login */}
-              <button
-                type="button"
-                onClick={handleGoogleLogin}
+              <div
                 className="w-full flex items-center justify-center gap-3 rounded-lg border border-slate-300 bg-white py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
-              >
-                <span className="font-bold text-base">G</span>
-                Continue with Google
-              </button>
-
+                ref={googleButtonRef}
+              />
               {/* Register */}
               <p className="mt-7 text-center text-sm text-slate-500">
                 Don't have an account?{" "}

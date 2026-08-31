@@ -71,7 +71,7 @@ const OwnerSidebar = () => {
 
     {
       label: "Customers",
-      path: "/customers",
+      path: "/owner/customers",
       icon: Users,
     },
 

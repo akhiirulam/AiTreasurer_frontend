@@ -1,14 +1,19 @@
-import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+
 import { Menu, X } from "lucide-react";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import logo from "../../../assets/aitreasurer-navbar-logo.webp";
+import { AuthContext } from "../../../context/AuthContext";
+import { authApi } from "../../../services/auth.api";
 
-const OwnerNavbar = () => {
+const Navbar = () => {
   const [open, setOpen] = useState(false);
+
+  const auth = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const isLoggedIn = !!localStorage.getItem("userId");
+  const isAuthenticated = auth?.isAuthenticated ?? false;
 
   const closeMenu = () => {
     setOpen(false);
@@ -21,17 +26,30 @@ const OwnerNavbar = () => {
     });
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("userId");
+  // =====================================================
+  // LOGOUT
+  // =====================================================
 
-    closeMenu();
-    navigate("/");
+  const handleLogout = async () => {
+    try {
+      await authApi.logout();
+    } catch (error) {
+      console.error("Logout failed:", error);
+    } finally {
+      auth?.clearAuth();
+      closeMenu();
+
+      navigate("/login");
+    }
   };
 
   return (
-    <nav className="w-full px-3 pt-1 sticky top-1 z-50">
+    <nav className="sticky top-1 z-50 w-full px-3 pt-1">
       <div className="relative flex h-14 w-full items-center rounded-xl bg-[#292727] px-4 sm:px-5">
-        {/* Logo */}
+        {/* =================================================
+            LOGO
+        ================================================= */}
+
         <NavLink
           to="/"
           onClick={(e) => {
@@ -43,18 +61,25 @@ const OwnerNavbar = () => {
           <img
             src={logo}
             alt="AiTreasurer"
-            className="h-12 w-20 object-contain bg-[#f5ffc2] rounded-xl"
+            className="h-12 w-20 rounded-xl bg-[#f5ffc2] object-contain"
           />
         </NavLink>
 
-        {/* Desktop Navigation */}
+        {/* =================================================
+            DESKTOP NAVIGATION
+        ================================================= */}
+
         <div className="ml-auto hidden items-center gap-6 text-sm text-white sm:gap-8 md:flex">
+          {/* Home */}
+
           <a
             href="/#home"
             className="text-base transition hover:text-[#79ff70]"
           >
             Home
           </a>
+
+          {/* About */}
 
           <NavLink
             to="/about"
@@ -67,6 +92,8 @@ const OwnerNavbar = () => {
             About Us
           </NavLink>
 
+          {/* How it works */}
+
           <a
             href="/#how-it-works"
             className="text-base transition hover:text-[#79ff70]"
@@ -74,7 +101,9 @@ const OwnerNavbar = () => {
             How it Works
           </a>
 
-          {isLoggedIn ? (
+          {/* Login / Logout */}
+
+          {isAuthenticated ? (
             <button
               type="button"
               onClick={handleLogout}
@@ -96,7 +125,10 @@ const OwnerNavbar = () => {
           )}
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* =================================================
+            MOBILE MENU BUTTON
+        ================================================= */}
+
         <button
           type="button"
           onClick={() => setOpen((prev) => !prev)}
@@ -106,51 +138,50 @@ const OwnerNavbar = () => {
           {open ? <X size={24} /> : <Menu size={24} />}
         </button>
 
-        {/* Mobile Menu */}
+        {/* =================================================
+            MOBILE MENU
+        ================================================= */}
+
         {open && (
           <div className="absolute left-0 right-0 top-[calc(100%+8px)] z-50 rounded-xl bg-[#292727] p-5 shadow-xl md:hidden">
             <div className="flex flex-col gap-5 text-sm text-white">
+              {/* Home */}
+
               <NavLink
                 to="/"
                 onClick={closeMenu}
-                className={({ isActive }) =>
-                  `transition ${
-                    isActive ? "text-[#79ff70]" : "hover:text-[#79ff70]"
-                  }`
-                }
+                className="transition hover:text-[#79ff70]"
               >
                 Home
               </NavLink>
 
+              {/* About */}
+
               <NavLink
                 to="/about"
                 onClick={closeMenu}
-                className={({ isActive }) =>
-                  `transition ${
-                    isActive ? "text-[#79ff70]" : "hover:text-[#79ff70]"
-                  }`
-                }
+                className="transition hover:text-[#79ff70]"
               >
                 About Us
               </NavLink>
 
-              <NavLink
-                to="/how-it-works"
+              {/* How it works */}
+
+              <a
+                href="/#how-it-works"
                 onClick={closeMenu}
-                className={({ isActive }) =>
-                  `transition ${
-                    isActive ? "text-[#79ff70]" : "hover:text-[#79ff70]"
-                  }`
-                }
+                className="transition hover:text-[#79ff70]"
               >
                 How it Works
-              </NavLink>
+              </a>
 
-              {isLoggedIn ? (
+              {/* Login / Logout */}
+
+              {isAuthenticated ? (
                 <button
                   type="button"
                   onClick={handleLogout}
-                  className="text-left font-bold transition hover:text-[#79ff70]"
+                  className="text-left text-base font-bold transition hover:text-[#79ff70]"
                 >
                   Logout
                 </button>
@@ -158,11 +189,7 @@ const OwnerNavbar = () => {
                 <NavLink
                   to="/login"
                   onClick={closeMenu}
-                  className={({ isActive }) =>
-                    `font-bold transition ${
-                      isActive ? "text-[#79ff70]" : "hover:text-[#79ff70]"
-                    }`
-                  }
+                  className="text-base font-bold transition hover:text-[#79ff70]"
                 >
                   Login
                 </NavLink>
@@ -175,4 +202,4 @@ const OwnerNavbar = () => {
   );
 };
 
-export default OwnerNavbar;
+export default Navbar;

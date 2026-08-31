@@ -51,31 +51,14 @@ export interface AccountLedger {
 }
 
 const getAccounts = async () => {
-  const userId = localStorage.getItem("userId");
-
-  if (!userId) {
-    throw new Error("User ID not found");
-  }
-
-  const response = await api.get("/accounts", {
-    params: {
-      userId,
-    },
-  });
+  const response = await api.get("/accounts");
 
   return response.data.data;
 };
 
 const getAccountLedger = async (accountId: string) => {
-  const userId = localStorage.getItem("userId");
-
-  if (!userId) {
-    throw new Error("User ID not found");
-  }
-
   const response = await api.get("/ledger/account", {
     params: {
-      userId,
       accountId,
     },
   });

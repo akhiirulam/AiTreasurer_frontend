@@ -10,3 +10,13 @@ export const loginUser = async (data: LoginData) => {
 
   return response.data;
 };
+
+export const logout = async () => {
+  const response = await api.post("/auth/logout");
+
+  return response.data;
+};
+
+export const authApi = {
+  logout,
+};

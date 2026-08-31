@@ -12,15 +12,7 @@ const getCashBook = async (
   data: CashBookData;
   message?: string;
 }> => {
-  const userId = localStorage.getItem("userId");
-
-  if (!userId) {
-    throw new Error("User ID not found in localStorage");
-  }
-
   const params = new URLSearchParams();
-
-  params.append("userId", userId);
 
   if (filters.from) {
     params.append("from", filters.from);

@@ -18,14 +18,7 @@ export interface TransactionHistoryFilters {
 const createTransaction = async (data: CreateTransactionData) => {
   const formData = new FormData();
 
-  const userId = localStorage.getItem("userId");
-
-  if (userId === null) {
-    throw new Error("User ID not found in localStorage");
-  }
-
   formData.append("text", data.text);
-  formData.append("userId", userId);
 
   if (data.file) {
     formData.append("attachment", data.file);
@@ -46,15 +39,7 @@ const createTransaction = async (data: CreateTransactionData) => {
 const getTransactionHistory = async (
   filters: TransactionHistoryFilters = {},
 ) => {
-  const userId = localStorage.getItem("userId");
-
-  if (userId === null) {
-    throw new Error("User ID not found in localStorage");
-  }
-
   const params = new URLSearchParams();
-
-  params.append("userId", userId);
 
   if (filters.search?.trim()) {
     params.append("search", filters.search.trim());

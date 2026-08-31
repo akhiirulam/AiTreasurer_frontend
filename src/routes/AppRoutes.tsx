@@ -14,6 +14,8 @@ import CashBook from "../pages/cashBook/CashBook";
 import Accounts from "../pages/accounting/Accounts";
 
 import AccountLedger from "../pages/accounting/AccountLedger";
+import Customers from "../pages/customers/Customers";
+import ProtectedRoute from "./ProtectedRoute";
 
 const AppRoutes = () => {
   return (
@@ -24,16 +26,22 @@ const AppRoutes = () => {
 
       <Route path="/transactions/add" element={<AddTransaction />} />
 
-      <Route element={<OwnerLayout />}>
-        <Route path="/owner/dashboard" element={<OwnerDashboard />} />
-        <Route path="/financialsummary" element={<FinancialSummary />} />
-        <Route path="/incomeexpensechart" element={<IncomeExpenseChart />} />
-        <Route path="/partysummary" element={<PartySummary />} />
-        <Route path="/quickActions" element={<QuickActions />} />
-        <Route path="/owner/transactions" element={<TransactionHistory />} />
-        <Route path="/owner/cash-book" element={<CashBook />} />
-        <Route path="/owner/accounts" element={<Accounts />} />
-        <Route path="/owner/accounts/:accountId" element={<AccountLedger />} />
+      <Route element={<ProtectedRoute />}>
+        <Route element={<OwnerLayout />}>
+          <Route path="/owner/dashboard" element={<OwnerDashboard />} />
+          <Route path="/financialsummary" element={<FinancialSummary />} />
+          <Route path="/incomeexpensechart" element={<IncomeExpenseChart />} />
+          <Route path="/partysummary" element={<PartySummary />} />
+          <Route path="/quickActions" element={<QuickActions />} />
+          <Route path="/owner/transactions" element={<TransactionHistory />} />
+          <Route path="/owner/cash-book" element={<CashBook />} />
+          <Route path="/owner/accounts" element={<Accounts />} />
+          <Route
+            path="/owner/accounts/:accountId"
+            element={<AccountLedger />}
+          />
+          <Route path="/owner/customers" element={<Customers />} />
+        </Route>
       </Route>
     </Routes>
   );
