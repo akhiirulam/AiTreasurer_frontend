@@ -16,6 +16,8 @@ import Accounts from "../pages/accounting/Accounts";
 import AccountLedger from "../pages/accounting/AccountLedger";
 import Customers from "../pages/customers/Customers";
 import ProtectedRoute from "./ProtectedRoute";
+import SuppliersPage from "../pages/suppliers/SuppliersPage";
+import SupplierDetailsPage from "../pages/suppliers/SupplierDetailsPage";
 
 const AppRoutes = () => {
   return (
@@ -41,6 +43,11 @@ const AppRoutes = () => {
             element={<AccountLedger />}
           />
           <Route path="/owner/customers" element={<Customers />} />
+          <Route path="/owner/suppliers" element={<SuppliersPage />} />
+          <Route
+            path="/owner/suppliers/:supplierId"
+            element={<SupplierDetailsPage />}
+          />
         </Route>
       </Route>
     </Routes>
