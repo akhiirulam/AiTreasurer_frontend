@@ -1,4 +1,5 @@
 import { Edit, MoreVertical, Phone, Trash2, UserRound } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 import type { Customer } from "../types/customer.types";
 import {
@@ -26,7 +27,7 @@ const CustomerTable = ({
   // =====================================================
   // LOADING
   // =====================================================
-
+  const navigate = useNavigate();
   if (loading) {
     return (
       <div className="rounded-2xl border border-[#d8e69e] bg-white shadow-sm">
@@ -121,9 +122,15 @@ const CustomerTable = ({
                       </div>
 
                       <div>
-                        <p className="text-sm font-bold text-[#17213d]">
+                        <button
+                          type="button"
+                          onClick={() =>
+                            navigate(`/owner/customers/${customer._id}`)
+                          }
+                          className="text-left text-sm font-bold text-[#17213d] transition hover:text-[#65751f]"
+                        >
                           {customer.name}
-                        </p>
+                        </button>
 
                         <p className="text-xs text-[#8995ad]">Customer</p>
                       </div>

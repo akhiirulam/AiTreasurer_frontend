@@ -18,6 +18,35 @@ export interface Customer {
   updatedAt: string;
 }
 
+// =====================================================
+// CUSTOMER LEDGER
+// =====================================================
+
+export interface CustomerLedgerEntry {
+  date: string;
+  description: string;
+  transactionId: string;
+  debit: number;
+  credit: number;
+  balance: number;
+}
+
+export interface CustomerLedger {
+  customer: {
+    _id: string;
+    name: string;
+    phone: string;
+    email?: string | null;
+    address?: string | null;
+  };
+
+  totalSales: number;
+  totalPayments: number;
+  outstandingBalance: number;
+
+  entries: CustomerLedgerEntry[];
+}
+
 export interface CustomerFilters {
   search: string;
 

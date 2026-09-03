@@ -4,6 +4,7 @@ import type {
   Customer,
   CreateCustomerData,
   UpdateCustomerData,
+  CustomerLedger,
 } from "../pages/customers/types/customer.types";
 
 // =====================================================
@@ -69,6 +70,34 @@ const deleteCustomer = async (customerId: string): Promise<void> => {
   await api.delete(`/customers/${customerId}`);
 };
 
+// =====================================================
+// GET CUSTOMER LEDGER
+// =====================================================
+
+const getCustomerLedger = async (
+  customerId: string,
+  from?: string,
+  to?: string,
+): Promise<CustomerLedger> => {
+  const params = new URLSearchParams();
+
+  if (from) {
+    params.append("from", from);
+  }
+
+  if (to) {
+    params.append("to", to);
+  }
+
+  const query = params.toString();
+
+  const response = await api.get(
+    `/customers/${customerId}/ledger${query ? `?${query}` : ""}`,
+  );
+
+  return response.data.data;
+};
+
 const customerApi = {
   getCustomers,
   getCustomerById,
@@ -76,6 +105,7 @@ const customerApi = {
   createCustomer,
   updateCustomer,
   deleteCustomer,
+  getCustomerLedger,
 };
 
 export default customerApi;

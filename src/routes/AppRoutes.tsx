@@ -18,6 +18,8 @@ import Customers from "../pages/customers/Customers";
 import ProtectedRoute from "./ProtectedRoute";
 import SuppliersPage from "../pages/suppliers/SuppliersPage";
 import SupplierDetailsPage from "../pages/suppliers/SupplierDetailsPage";
+import CustomerDetailsPage from "../pages/customers/CustomerDetailsPage";
+import Sales from "../pages/sales/Sales";
 
 const AppRoutes = () => {
   return (
@@ -48,6 +50,11 @@ const AppRoutes = () => {
             path="/owner/suppliers/:supplierId"
             element={<SupplierDetailsPage />}
           />
+          <Route
+            path="/owner/customers/:customerId"
+            element={<CustomerDetailsPage />}
+          />
+          <Route path="/sales" element={<Sales />} />
         </Route>
       </Route>
     </Routes>
