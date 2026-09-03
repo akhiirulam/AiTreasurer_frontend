@@ -20,7 +20,8 @@ import SuppliersPage from "../pages/suppliers/SuppliersPage";
 import SupplierDetailsPage from "../pages/suppliers/SupplierDetailsPage";
 import CustomerDetailsPage from "../pages/customers/CustomerDetailsPage";
 import Sales from "../pages/sales/Sales";
-
+import Purchases from "../pages/purchases/Purchases";
+import Reports from "../pages/reports/Reports";
 const AppRoutes = () => {
   return (
     <Routes>
@@ -55,6 +56,8 @@ const AppRoutes = () => {
             element={<CustomerDetailsPage />}
           />
           <Route path="/sales" element={<Sales />} />
+          <Route path="/purchases" element={<Purchases />} />
+          <Route path="/owner/reports" element={<Reports />} />
         </Route>
       </Route>
     </Routes>

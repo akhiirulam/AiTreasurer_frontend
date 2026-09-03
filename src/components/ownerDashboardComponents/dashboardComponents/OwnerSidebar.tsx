@@ -86,10 +86,15 @@ const OwnerSidebar = () => {
       path: "/sales",
       icon: ShoppingCart,
     },
+    {
+      label: "Purchases",
+      path: "/purchases",
+      icon: ShoppingCart,
+    },
 
     {
       label: "Reports",
-      path: "/reports",
+      path: "/owner/reports",
       icon: BarChart3,
     },
 
