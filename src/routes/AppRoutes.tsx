@@ -10,7 +10,7 @@ import ProtectedRoute from "./ProtectedRoute";
 // OWNER
 // =====================================================
 
-import OwnerLayout from "../layouts/OwnerLayout";
+import OwnerLayout from "../layouts/owner/OwnerLayout";
 import OwnerDashboard from "../pages/Dashboard/ownerDashboard/OwnerDashboard";
 
 import AddTransaction from "../pages/transacations/AddTransaction";
