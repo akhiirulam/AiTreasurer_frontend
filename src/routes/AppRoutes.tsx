@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 
-import LandingPage from "../pages/LandingPage/LandingPage";
+import LandingPage from "../pages/landingPage/LandingPage";
 import Login from "../pages/auth/Login";
 import GoogleLogin from "../pages/auth/GoogleLogin";
 
@@ -11,7 +11,7 @@ import ProtectedRoute from "./ProtectedRoute";
 // =====================================================
 
 import OwnerLayout from "../layouts/owner/OwnerLayout";
-import OwnerDashboard from "../pages/Dashboard/OwnerDashboard/OwnerDashboard";
+import OwnerDashboard from "../pages/Dashboard/ownerDashboard/OwnerDashboard";
 
 import AddTransaction from "../pages/transacations/AddTransaction";
 import TransactionHistory from "../pages/transacations/TransactionHistory";
@@ -38,6 +38,7 @@ import Reports from "../pages/reports/Reports";
 import AdminLayout from "../layouts/admin/AdminLayout";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import Users from "../pages/admin/users/Users";
+import Register from "../pages/auth/Register";
 
 const AppRoutes = () => {
   return (
@@ -49,6 +50,7 @@ const AppRoutes = () => {
       <Route path="/" element={<LandingPage />} />
 
       <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
       <Route path="/google-login" element={<GoogleLogin />} />
 
