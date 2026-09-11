@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 
-import LandingPage from "../pages/landingPage/LandingPage";
+import LandingPage from "../pages/LandingPage/LandingPage";
 import Login from "../pages/auth/Login";
 import GoogleLogin from "../pages/auth/GoogleLogin";
 
@@ -10,7 +10,7 @@ import ProtectedRoute from "./ProtectedRoute";
 // OWNER
 // =====================================================
 
-import OwnerLayout from "../layouts/owner/OwnerLayout";
+import OwnerLayout from "../layouts/Owner/OwnerLayout";
 import OwnerDashboard from "../pages/Dashboard/ownerDashboard/OwnerDashboard";
 
 import AddTransaction from "../pages/transacations/AddTransaction";
