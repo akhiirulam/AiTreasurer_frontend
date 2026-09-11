@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 import { loginUser } from "../../services/auth.api";
 import api from "../../api/axios";
@@ -225,12 +226,12 @@ const Login = () => {
               {/* Register */}
               <p className="mt-7 text-center text-sm text-slate-500">
                 Don't have an account?{" "}
-                <a
-                  href="/register"
+                <Link
+                  to="/register"
                   className="font-medium text-emerald-600 hover:text-emerald-700"
                 >
                   Create account
-                </a>
+                </Link>
               </p>
             </div>
           </div>
