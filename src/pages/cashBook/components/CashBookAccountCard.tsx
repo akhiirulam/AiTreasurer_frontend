@@ -20,7 +20,7 @@ const CashBookAccountCard = ({ account }: CashBookAccountCardProps) => {
   };
 
   return (
-    <div className="overflow-hidden rounded-3xl border border-[#d8e69e] bg-[#faffdf] shadow-sm">
+    <div className="overflow-hidden rounded-3xl border border-[#dce5da] bg-white shadow-sm">
       {/* =====================================================
           ACCOUNT HEADER
       ===================================================== */}
@@ -60,12 +60,20 @@ const CashBookAccountCard = ({ account }: CashBookAccountCardProps) => {
               CLOSING BALANCE
           ================================================= */}
 
-          <div className="flex flex-col gap-2 border-t border-[#d8e69e] bg-[#edf6c5] px-4 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-            <p className="text-sm font-bold text-[#667697]">Closing Balance</p>
+          <div className="flex flex-col gap-2 border-t border-[#dce5da] bg-[#173f35] px-4 py-5 text-white sm:flex-row sm:items-center sm:justify-between sm:px-6">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wider text-white/60">
+                Closing Balance
+              </p>
+
+              <p className="mt-1 text-sm text-white/70">
+                Current account balance
+              </p>
+            </div>
 
             <p
-              className={`text-xl font-black ${
-                account.closingBalance < 0 ? "text-red-600" : "text-[#17213d]"
+              className={`font-financial text-xl font-semibold ${
+                account.closingBalance < 0 ? "text-[#ffb4b4]" : "text-white"
               }`}
             >
               {formatCurrency(account.closingBalance)}

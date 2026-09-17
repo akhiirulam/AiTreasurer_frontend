@@ -10,17 +10,11 @@ import { formatPeriodLabel } from "./utils/cashBook.utils";
 const CashBook = () => {
   const {
     cashBook,
-
     loading,
-
     error,
-
     from,
-
     to,
-
     selectedAccountId,
-
     setFrom,
 
     setTo,
@@ -46,15 +40,17 @@ const CashBook = () => {
 
   if (loading && !cashBook) {
     return (
-      <div className="min-h-screen bg-[#f1ffc4] px-3 py-6 text-[#17213d] sm:px-5 md:px-10">
+      <div className="min-h-screen bg-[#f5f7f2] px-4 py-6 text-[#17231f] sm:px-6 md:px-8 lg:px-10">
         <div className="mx-auto max-w-7xl animate-pulse">
-          <div className="h-10 w-48 rounded-lg bg-[#dce9a5]" />
+          <div className="h-4 w-28 rounded bg-[#dce5da]" />
 
-          <div className="mt-3 h-5 w-72 rounded bg-[#dce9a5]" />
+          <div className="mt-4 h-10 w-56 rounded-xl bg-[#dce5da]" />
 
-          <div className="mt-8 h-32 rounded-3xl bg-[#e7f0b9]" />
+          <div className="mt-3 h-5 w-80 max-w-full rounded bg-[#dce5da]" />
 
-          <div className="mt-6 h-64 rounded-3xl bg-[#e7f0b9]" />
+          <div className="mt-8 h-32 rounded-3xl bg-white" />
+
+          <div className="mt-6 h-64 rounded-3xl bg-white" />
         </div>
       </div>
     );
@@ -66,19 +62,23 @@ const CashBook = () => {
 
   if (error && !cashBook) {
     return (
-      <div className="min-h-screen bg-[#f1ffc4] px-3 py-6 text-[#17213d] sm:px-5 md:px-10">
+      <div className="min-h-screen bg-[#f5f7f2] px-4 py-6 text-[#17231f] sm:px-6 md:px-8 lg:px-10">
         <div className="mx-auto max-w-7xl">
-          <div className="rounded-3xl border border-red-200 bg-red-50 p-6">
-            <h2 className="text-lg font-black text-red-700">
+          <div className="rounded-3xl border border-[#f0caca] bg-white p-6 shadow-sm">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#fbe8e8] text-[#c43d3d]">
+              !
+            </div>
+
+            <h2 className="mt-4 text-lg font-bold text-[#17231f]">
               Unable to load Cash Book
             </h2>
 
-            <p className="mt-2 text-sm text-red-600">{error}</p>
+            <p className="mt-2 text-sm leading-6 text-[#68736c]">{error}</p>
 
             <button
               type="button"
               onClick={retry}
-              className="mt-4 rounded-xl bg-[#292727] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#181818]"
+              className="mt-5 rounded-xl bg-[#173f35] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#102e27]"
             >
               Try again
             </button>
@@ -97,8 +97,8 @@ const CashBook = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#f1ffc4] px-3 py-5 text-[#17213d] sm:px-5 sm:py-6 md:px-10 md:py-8">
-      <div className="mx-auto max-w-7xl">
+    <div className="min-h-screen w-full bg-[#f5f7f2] px-4 py-6 text-[#17231f] sm:px-6 md:px-8 lg:px-10">
+      <div className="mx-auto w-full max-w-7xl">
         {/* =====================================================
             HEADER
         ===================================================== */}
@@ -130,8 +130,8 @@ const CashBook = () => {
         ===================================================== */}
 
         {error && (
-          <div className="mb-5 rounded-2xl border border-red-200 bg-red-50 px-4 py-3">
-            <p className="text-sm font-bold text-red-600">{error}</p>
+          <div className="mb-5 rounded-2xl border border-[#f0caca] bg-[#fbe8e8] px-4 py-3">
+            <p className="text-sm font-semibold text-[#c43d3d]">{error}</p>
           </div>
         )}
 
@@ -150,15 +150,17 @@ const CashBook = () => {
             PERIOD
         ===================================================== */}
 
-        <div className="mb-5 flex flex-col gap-2 text-sm text-[#667697] sm:flex-row sm:items-center sm:justify-between">
+        <div className="mb-5 flex flex-col gap-2 text-sm text-[#68736c] sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-wrap gap-4">
             <p className="font-semibold">
-              {visibleAccounts.length} account
+              <span className="font-financial">{visibleAccounts.length}</span>{" "}
+              account
               {visibleAccounts.length !== 1 ? "s" : ""}
             </p>
 
             <p className="font-semibold">
-              {transactionCount} transaction
+              <span className="font-financial">{transactionCount}</span>{" "}
+              transaction
               {transactionCount !== 1 ? "s" : ""}
             </p>
           </div>
@@ -173,17 +175,23 @@ const CashBook = () => {
         ===================================================== */}
 
         {visibleAccounts.length === 0 ? (
-          <div className="rounded-3xl border border-[#d8e69e] bg-[#faffdf] px-5 py-16 text-center shadow-sm">
-            <h2 className="text-xl font-black">No Cash Book Accounts</h2>
+          <div className="rounded-3xl border border-[#dce5da] bg-white px-5 py-20 text-center shadow-sm">
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#e4f2de] text-[#173f35]">
+              <span className="text-lg font-bold">₹</span>
+            </div>
 
-            <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[#667697]">
+            <h2 className="mt-5 text-xl font-bold text-[#17231f]">
+              No Cash Book Accounts
+            </h2>
+
+            <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[#68736c]">
               No cash or bank accounts match your current filters.
             </p>
 
             <button
               type="button"
               onClick={resetFilters}
-              className="mt-5 rounded-xl bg-[#292727] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#181818]"
+              className="mt-5 rounded-xl bg-[#173f35] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#102e27]"
             >
               Reset Filters
             </button>

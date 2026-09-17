@@ -11,6 +11,7 @@ import {
   Truck,
   MessageCircle,
   X,
+  ReceiptText,
   type LucideIcon,
 } from "lucide-react";
 
@@ -55,7 +56,7 @@ const OwnerSidebar = ({ isOpen, onClose }: OwnerSidebarProps) => {
     {
       label: "Transactions",
       path: "/owner/transactions",
-      icon: BookOpen,
+      icon: ReceiptText,
     },
 
     // ==========================================
@@ -78,6 +79,10 @@ const OwnerSidebar = ({ isOpen, onClose }: OwnerSidebarProps) => {
       ],
     },
 
+    // ==========================================
+    // BUSINESS
+    // ==========================================
+
     {
       label: "Customers",
       path: "/owner/customers",
@@ -98,16 +103,31 @@ const OwnerSidebar = ({ isOpen, onClose }: OwnerSidebarProps) => {
       path: "/purchases",
       icon: ShoppingCart,
     },
+
+    // ==========================================
+    // ANALYTICS
+    // ==========================================
+
     {
       label: "Reports",
       path: "/owner/reports",
       icon: BarChart3,
     },
+
+    // ==========================================
+    // AI
+    // ==========================================
+
     {
       label: "AI Assistant",
       path: "/ai-assistant",
       icon: MessageCircle,
     },
+
+    // ==========================================
+    // SETTINGS
+    // ==========================================
+
     {
       label: "Settings",
       path: "/settings",
@@ -132,7 +152,7 @@ const OwnerSidebar = ({ isOpen, onClose }: OwnerSidebarProps) => {
       {isOpen && (
         <div
           onClick={onClose}
-          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+          className="fixed inset-0 z-40 bg-[#173f35]/30 backdrop-blur-[2px] lg:hidden"
         />
       )}
 
@@ -141,7 +161,7 @@ const OwnerSidebar = ({ isOpen, onClose }: OwnerSidebarProps) => {
       {/* ========================================== */}
 
       <aside
-        className={`fixed left-0 top-0 z-50 flex h-screen flex-col border-r border-slate-200 bg-white transition-all duration-300 lg:sticky lg:top-0 lg:z-20 lg:h-screen ${
+        className={`fixed left-0 top-0 z-50 flex h-screen flex-col border-r border-[#dce5da] bg-white transition-all duration-300 lg:sticky lg:top-0 lg:z-20 lg:h-screen ${
           collapsed ? "w-20" : "w-64"
         } ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}
       >
@@ -150,7 +170,7 @@ const OwnerSidebar = ({ isOpen, onClose }: OwnerSidebarProps) => {
         {/* ========================================== */}
 
         <div
-          className={`flex h-16 shrink-0 items-center border-b border-slate-100 ${
+          className={`flex h-20 shrink-0 items-center border-b border-[#edf1ea] ${
             collapsed ? "justify-center" : "justify-between px-4"
           }`}
         >
@@ -159,20 +179,25 @@ const OwnerSidebar = ({ isOpen, onClose }: OwnerSidebarProps) => {
           <button
             type="button"
             onClick={onClose}
-            className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 lg:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-xl text-[#68736c] transition hover:bg-[#e4f2de] hover:text-[#173f35] lg:hidden"
             aria-label="Close sidebar"
           >
-            <X size={20} />
+            <X size={19} strokeWidth={2} />
           </button>
 
           {/* DESKTOP COLLAPSE BUTTON */}
 
           <button
             type="button"
-            onClick={() => setCollapsed(!collapsed)}
-            className="hidden h-9 w-9 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 lg:flex"
+            onClick={() => setCollapsed((prev) => !prev)}
+            className="hidden h-9 w-9 items-center justify-center rounded-xl text-[#68736c] transition hover:bg-[#e4f2de] hover:text-[#173f35] lg:flex"
+            aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
-            {collapsed ? <ChevronRight size={19} /> : <ChevronLeft size={19} />}
+            {collapsed ? (
+              <ChevronRight size={18} strokeWidth={2} />
+            ) : (
+              <ChevronLeft size={18} strokeWidth={2} />
+            )}
           </button>
         </div>
 
@@ -183,6 +208,10 @@ const OwnerSidebar = ({ isOpen, onClose }: OwnerSidebarProps) => {
         <nav className="flex flex-1 flex-col overflow-y-auto px-3 py-5">
           <div className="space-y-1">
             {menuItems.map((item) => {
+              // ==========================================
+              // NORMAL MENU ITEM
+              // ==========================================
+
               if ("path" in item) {
                 const Icon = item.icon;
 
@@ -193,24 +222,35 @@ const OwnerSidebar = ({ isOpen, onClose }: OwnerSidebarProps) => {
                     onClick={handleNavigation}
                     title={collapsed ? item.label : undefined}
                     className={({ isActive }) =>
-                      `flex items-center rounded-lg px-3 py-2.5 text-sm font-medium transition ${
+                      [
+                        "group flex items-center rounded-xl px-3 py-2.5",
+                        "text-sm font-medium transition-all duration-200",
+                        collapsed ? "justify-center" : "gap-3",
                         isActive
-                          ? "bg-black text-white"
-                          : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
-                      } ${collapsed ? "justify-center" : "gap-3"}`
+                          ? "bg-[#e4f2de] text-[#173f35]"
+                          : "text-[#68736c] hover:bg-[#f5f7f2] hover:text-[#173f35]",
+                      ].join(" ")
                     }
                   >
-                    <Icon size={19} strokeWidth={1.8} />
+                    <Icon
+                      size={19}
+                      strokeWidth={1.8}
+                      className="shrink-0 transition-transform duration-200 group-hover:scale-105"
+                    />
 
                     {!collapsed && <span>{item.label}</span>}
                   </NavLink>
                 );
               }
 
+              // ==========================================
+              // SECTION
+              // ==========================================
+
               return (
-                <div key={item.label} className="pt-3">
+                <div key={item.label} className="pt-5">
                   {!collapsed && (
-                    <p className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400">
+                    <p className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#9aa49d]">
                       {item.label}
                     </p>
                   )}
@@ -226,14 +266,21 @@ const OwnerSidebar = ({ isOpen, onClose }: OwnerSidebarProps) => {
                           onClick={handleNavigation}
                           title={collapsed ? subItem.label : undefined}
                           className={({ isActive }) =>
-                            `flex items-center rounded-lg px-3 py-2.5 text-sm font-medium transition ${
+                            [
+                              "group flex items-center rounded-xl px-3 py-2.5",
+                              "text-sm font-medium transition-all duration-200",
+                              collapsed ? "justify-center" : "gap-3",
                               isActive
-                                ? "bg-black text-white"
-                                : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
-                            } ${collapsed ? "justify-center" : "gap-3"}`
+                                ? "bg-[#e4f2de] text-[#173f35]"
+                                : "text-[#68736c] hover:bg-[#f5f7f2] hover:text-[#173f35]",
+                            ].join(" ")
                           }
                         >
-                          <Icon size={19} strokeWidth={1.8} />
+                          <Icon
+                            size={19}
+                            strokeWidth={1.8}
+                            className="shrink-0 transition-transform duration-200 group-hover:scale-105"
+                          />
 
                           {!collapsed && <span>{subItem.label}</span>}
                         </NavLink>
@@ -249,14 +296,23 @@ const OwnerSidebar = ({ isOpen, onClose }: OwnerSidebarProps) => {
           {/* BOTTOM */}
           {/* ========================================== */}
 
-          <div className="mt-auto border-t border-slate-100 pt-4">
+          <div className="mt-auto border-t border-[#edf1ea] pt-4">
             <button
               type="button"
-              className={`flex w-full items-center rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 ${
-                collapsed ? "justify-center" : "gap-3"
-              }`}
+              title={collapsed ? "Logout" : undefined}
+              className={[
+                "group flex w-full items-center rounded-xl px-3 py-2.5",
+                "text-sm font-medium text-[#68736c]",
+                "transition-all duration-200",
+                "hover:bg-[#fff1f1] hover:text-[#c43d3d]",
+                collapsed ? "justify-center" : "gap-3",
+              ].join(" ")}
             >
-              <LogOut size={19} strokeWidth={1.8} />
+              <LogOut
+                size={19}
+                strokeWidth={1.8}
+                className="shrink-0 transition-transform duration-200 group-hover:translate-x-0.5"
+              />
 
               {!collapsed && <span>Logout</span>}
             </button>

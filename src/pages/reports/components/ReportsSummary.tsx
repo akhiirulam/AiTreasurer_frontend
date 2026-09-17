@@ -81,25 +81,25 @@ const ReportsSummary = ({ summary }: ReportsSummaryProps) => {
         return (
           <div
             key={card.title}
-            className="rounded-xl border border-[#e5edc5] bg-white p-5 shadow-sm transition hover:shadow-md"
+            className="rounded-xl border border-[#dce5da] bg-white p-5 shadow-sm transition hover:shadow-md"
           >
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm font-medium text-[#667697]">
+                <p className="text-sm font-medium text-[#68736c]">
                   {card.title}
                 </p>
 
-                <p className="mt-2 text-2xl font-bold text-[#17213d]">
+                <p className="mt-2 font-financial text-2xl font-bold text-[#173f35]">
                   {formatCurrency(card.value)}
                 </p>
               </div>
 
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#faffdf] text-[#17213d]">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#e4f2de] text-[#173f35]">
                 <Icon size={20} />
               </div>
             </div>
 
-            <p className="mt-3 text-xs text-[#667697]">{card.description}</p>
+            <p className="mt-3 text-xs text-[#68736c]">{card.description}</p>
           </div>
         );
       })}

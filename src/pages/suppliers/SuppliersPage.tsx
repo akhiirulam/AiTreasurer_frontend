@@ -12,7 +12,9 @@ const SuppliersPage = () => {
 
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState<StatusFilter>("all");
+
   const navigate = useNavigate();
+
   // =====================================================
   // LOAD SUPPLIERS
   // =====================================================
@@ -107,15 +109,15 @@ const SuppliersPage = () => {
   // =====================================================
 
   return (
-    <div className="min-h-full w-full p-4 sm:p-6 lg:p-8">
+    <div className="min-h-full w-full bg-[#f5f7f2] p-4 sm:p-6 lg:p-8">
       {/* =================================================
           HEADER
       ================================================= */}
 
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-slate-900">Suppliers</h1>
+        <h1 className="text-2xl font-bold text-[#173f35]">Suppliers</h1>
 
-        <p className="mt-1 text-sm text-slate-500">
+        <p className="mt-1 text-sm text-[#68736c]">
           Manage suppliers created through your transactions.
         </p>
       </div>
@@ -127,30 +129,30 @@ const SuppliersPage = () => {
       <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
         {/* Total */}
 
-        <div className="rounded-xl border border-slate-200 bg-white p-5">
-          <p className="text-sm text-slate-500">Total Suppliers</p>
+        <div className="rounded-xl border border-[#dce5da] bg-white p-5">
+          <p className="text-sm text-[#68736c]">Total Suppliers</p>
 
-          <p className="mt-2 text-2xl font-bold text-slate-900">
+          <p className="mt-2 font-financial text-2xl font-bold text-[#173f35]">
             {totalSuppliers}
           </p>
         </div>
 
         {/* Active */}
 
-        <div className="rounded-xl border border-slate-200 bg-white p-5">
-          <p className="text-sm text-slate-500">Active Suppliers</p>
+        <div className="rounded-xl border border-[#dce5da] bg-white p-5">
+          <p className="text-sm text-[#68736c]">Active Suppliers</p>
 
-          <p className="mt-2 text-2xl font-bold text-green-600">
+          <p className="mt-2 font-financial text-2xl font-bold text-[#238636]">
             {activeSuppliers}
           </p>
         </div>
 
         {/* Inactive */}
 
-        <div className="rounded-xl border border-slate-200 bg-white p-5">
-          <p className="text-sm text-slate-500">Inactive Suppliers</p>
+        <div className="rounded-xl border border-[#dce5da] bg-white p-5">
+          <p className="text-sm text-[#68736c]">Inactive Suppliers</p>
 
-          <p className="mt-2 text-2xl font-bold text-slate-500">
+          <p className="mt-2 font-financial text-2xl font-bold text-[#68736c]">
             {inactiveSuppliers}
           </p>
         </div>
@@ -166,7 +168,7 @@ const SuppliersPage = () => {
         <div className="relative flex-1">
           <Search
             size={18}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-[#a0aaa3]"
           />
 
           <input
@@ -174,7 +176,7 @@ const SuppliersPage = () => {
             value={search}
             onChange={(event) => setSearch(event.target.value)}
             placeholder="Search suppliers..."
-            className="h-11 w-full rounded-lg border border-slate-200 bg-white pl-10 pr-4 text-sm outline-none transition focus:border-slate-400"
+            className="h-11 w-full rounded-lg border border-[#dce5da] bg-white pl-10 pr-4 text-sm text-[#17231f] outline-none transition placeholder:text-[#a0aaa3] focus:border-[#173f35] focus:ring-2 focus:ring-[#e4f2de]"
           />
         </div>
 
@@ -183,7 +185,7 @@ const SuppliersPage = () => {
         <select
           value={status}
           onChange={(event) => setStatus(event.target.value as StatusFilter)}
-          className="h-11 rounded-lg border border-slate-200 bg-white px-4 text-sm outline-none focus:border-slate-400"
+          className="h-11 rounded-lg border border-[#dce5da] bg-white px-4 text-sm text-[#17231f] outline-none transition focus:border-[#173f35] focus:ring-2 focus:ring-[#e4f2de]"
         >
           <option value="all">All Suppliers</option>
           <option value="active">Active</option>
@@ -195,28 +197,28 @@ const SuppliersPage = () => {
           TABLE
       ================================================= */}
 
-      <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+      <div className="overflow-hidden rounded-xl border border-[#dce5da] bg-white">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[700px]">
-            <thead className="border-b border-slate-200 bg-slate-50">
+            <thead className="border-b border-[#dce5da] bg-[#f9fbf7]">
               <tr>
-                <th className="px-5 py-4 text-left text-xs font-semibold uppercase text-slate-500">
+                <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wide text-[#68736c]">
                   Supplier
                 </th>
 
-                <th className="px-5 py-4 text-left text-xs font-semibold uppercase text-slate-500">
+                <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wide text-[#68736c]">
                   Phone
                 </th>
 
-                <th className="px-5 py-4 text-left text-xs font-semibold uppercase text-slate-500">
+                <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wide text-[#68736c]">
                   Email
                 </th>
 
-                <th className="px-5 py-4 text-left text-xs font-semibold uppercase text-slate-500">
+                <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wide text-[#68736c]">
                   Status
                 </th>
 
-                <th className="px-5 py-4 text-right text-xs font-semibold uppercase text-slate-500">
+                <th className="px-5 py-4 text-right text-xs font-semibold uppercase tracking-wide text-[#68736c]">
                   Actions
                 </th>
               </tr>
@@ -227,7 +229,7 @@ const SuppliersPage = () => {
                 <tr>
                   <td
                     colSpan={5}
-                    className="px-5 py-10 text-center text-sm text-slate-500"
+                    className="px-5 py-10 text-center text-sm text-[#68736c]"
                   >
                     Loading suppliers...
                   </td>
@@ -236,7 +238,7 @@ const SuppliersPage = () => {
                 <tr>
                   <td
                     colSpan={5}
-                    className="px-5 py-10 text-center text-sm text-slate-500"
+                    className="px-5 py-10 text-center text-sm text-[#68736c]"
                   >
                     No suppliers found.
                   </td>
@@ -245,7 +247,7 @@ const SuppliersPage = () => {
                 filteredSuppliers.map((supplier) => (
                   <tr
                     key={supplier._id}
-                    className="border-b border-slate-100 last:border-0 hover:bg-slate-50"
+                    className="border-b border-[#edf1eb] last:border-0 hover:bg-[#f9fbf7]"
                   >
                     {/* Supplier */}
 
@@ -255,13 +257,13 @@ const SuppliersPage = () => {
                         onClick={() =>
                           navigate(`/owner/suppliers/${supplier._id}`)
                         }
-                        className="text-left font-semibold text-slate-900 hover:underline"
+                        className="text-left font-semibold text-[#173f35] transition hover:text-[#238636] hover:underline"
                       >
                         {supplier.name}
                       </button>
 
                       {supplier.address && (
-                        <p className="mt-1 text-xs text-slate-400">
+                        <p className="mt-1 text-xs text-[#a0aaa3]">
                           {supplier.address}
                         </p>
                       )}
@@ -269,13 +271,13 @@ const SuppliersPage = () => {
 
                     {/* Phone */}
 
-                    <td className="px-5 py-4 text-sm text-slate-600">
+                    <td className="px-5 py-4 text-sm text-[#17231f]">
                       {supplier.phone || "—"}
                     </td>
 
                     {/* Email */}
 
-                    <td className="px-5 py-4 text-sm text-slate-600">
+                    <td className="px-5 py-4 text-sm text-[#68736c]">
                       {supplier.email || "—"}
                     </td>
 
@@ -283,11 +285,11 @@ const SuppliersPage = () => {
 
                     <td className="px-5 py-4">
                       {supplier.isActive ? (
-                        <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
+                        <span className="rounded-full bg-[#e4f2de] px-3 py-1 text-xs font-medium text-[#238636]">
                           Active
                         </span>
                       ) : (
-                        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-500">
+                        <span className="rounded-full bg-[#eef1ee] px-3 py-1 text-xs font-medium text-[#68736c]">
                           Inactive
                         </span>
                       )}
@@ -302,7 +304,7 @@ const SuppliersPage = () => {
                         <button
                           type="button"
                           onClick={() => handleEdit(supplier)}
-                          className="rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
+                          className="rounded-lg p-2 text-[#68736c] transition hover:bg-[#e4f2de] hover:text-[#173f35]"
                           title="Edit supplier"
                         >
                           <Pencil size={17} />
@@ -314,7 +316,7 @@ const SuppliersPage = () => {
                           <button
                             type="button"
                             onClick={() => handleDeactivate(supplier._id)}
-                            className="rounded-lg p-2 text-slate-500 transition hover:bg-red-50 hover:text-red-600"
+                            className="rounded-lg p-2 text-[#68736c] transition hover:bg-[#fff5f5] hover:text-[#c43d3d]"
                             title="Deactivate supplier"
                           >
                             <UserX size={17} />

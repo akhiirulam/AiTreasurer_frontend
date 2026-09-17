@@ -21,7 +21,7 @@ const Purchases = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8f9f1]">
+    <div className="min-h-screen bg-[#f5f7f2]">
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         {/* Header */}
         <PurchasesHeader />
@@ -33,15 +33,15 @@ const Purchases = () => {
 
         {/* Error */}
         {error && (
-          <div className="mt-6 rounded-xl border border-red-200 bg-red-50 px-5 py-4">
-            <p className="text-sm font-medium text-red-700">{error}</p>
+          <div className="mt-6 rounded-xl border border-[#f0caca] bg-[#fff5f5] px-5 py-4">
+            <p className="text-sm font-medium text-[#c43d3d]">{error}</p>
           </div>
         )}
 
         {/* Initial Loading */}
         {loading && !purchases && (
-          <div className="mt-6 rounded-xl border border-[#e5edc5] bg-white px-6 py-12 text-center">
-            <p className="text-sm text-[#667697]">Loading purchases...</p>
+          <div className="mt-6 rounded-xl border border-[#dce5da] bg-white px-6 py-12 text-center">
+            <p className="text-sm text-[#68736c]">Loading purchases...</p>
           </div>
         )}
 
@@ -60,13 +60,13 @@ const Purchases = () => {
             {/* Selected Period */}
             {(fromDate || toDate) && (
               <div className="mt-6">
-                <p className="text-sm text-[#667697]">
+                <p className="text-sm text-[#68736c]">
                   Showing purchases
                   {fromDate && (
                     <>
                       {" "}
                       from{" "}
-                      <span className="font-medium text-[#17213d]">
+                      <span className="font-technical font-medium text-[#173f35]">
                         {fromDate}
                       </span>
                     </>
@@ -75,7 +75,7 @@ const Purchases = () => {
                     <>
                       {" "}
                       to{" "}
-                      <span className="font-medium text-[#17213d]">
+                      <span className="font-technical font-medium text-[#173f35]">
                         {toDate}
                       </span>
                     </>

@@ -13,16 +13,16 @@ const CustomerHeader = ({ onAddCustomer }: CustomerHeaderProps) => {
 
       <div>
         <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#17213d] text-white">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#173f35] text-white">
             <Users size={21} />
           </div>
 
           <div>
-            <h1 className="text-2xl font-black tracking-tight text-[#17213d] sm:text-3xl">
+            <h1 className="text-2xl font-black tracking-tight text-[#173f35] sm:text-3xl">
               Customers
             </h1>
 
-            <p className="mt-1 text-sm font-medium text-[#667697]">
+            <p className="mt-1 text-sm font-medium text-[#68736c]">
               Manage your customers and their account details.
             </p>
           </div>
@@ -36,7 +36,7 @@ const CustomerHeader = ({ onAddCustomer }: CustomerHeaderProps) => {
       <button
         type="button"
         onClick={onAddCustomer}
-        className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#17213d] px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-[#273454]"
+        className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#173f35] px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-[#102e27]"
       >
         <Plus size={18} />
         Add Customer

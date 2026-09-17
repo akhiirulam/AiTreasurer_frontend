@@ -18,14 +18,18 @@ const SummaryItem = ({ label, value, icon }: SummaryItemProps) => {
   return (
     <div className="px-4 py-4 sm:px-6">
       <div className="flex items-center gap-2">
-        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#eaf4bd] text-[#292727]">
+        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#e4f2de] text-[#173f35]">
           {icon}
         </div>
 
-        <p className="text-xs font-bold text-[#667697]">{label}</p>
+        <p className="text-xs font-semibold uppercase tracking-wider text-[#68736c]">
+          {label}
+        </p>
       </div>
 
-      <p className="mt-2 text-lg font-black">{formatCurrency(value)}</p>
+      <p className="font-financial mt-2 text-lg font-semibold text-[#17231f]">
+        {formatCurrency(value)}
+      </p>
     </div>
   );
 };
@@ -36,14 +40,14 @@ const CashBookAccountSummary = ({
   totalPayments,
 }: CashBookAccountSummaryProps) => {
   return (
-    <div className="grid grid-cols-1 border-b border-[#d8e69e] sm:grid-cols-3">
+    <div className="grid grid-cols-1 border-b border-[#dce5da] bg-white sm:grid-cols-3">
       <SummaryItem
         label="Opening Balance"
         value={openingBalance}
         icon={<Wallet size={15} />}
       />
 
-      <div className="border-t border-[#d8e69e] sm:border-l sm:border-t-0">
+      <div className="border-t border-[#dce5da] sm:border-l sm:border-t-0">
         <SummaryItem
           label="Receipts"
           value={totalReceipts}
@@ -51,7 +55,7 @@ const CashBookAccountSummary = ({
         />
       </div>
 
-      <div className="border-t border-[#d8e69e] sm:border-l sm:border-t-0">
+      <div className="border-t border-[#dce5da] sm:border-l sm:border-t-0">
         <SummaryItem
           label="Payments"
           value={totalPayments}

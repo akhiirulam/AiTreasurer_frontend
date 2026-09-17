@@ -47,19 +47,19 @@ const getStatusClass = (status: Sale["paymentStatus"]) => {
   switch (status) {
     case "paid":
     case "completed":
-      return "bg-green-100 text-green-700";
+      return "bg-[#e4f2de] text-[#238636]";
 
     case "partial":
-      return "bg-yellow-100 text-yellow-700";
+      return "bg-[#fff4d6] text-[#b7791f]";
 
     case "unpaid":
-      return "bg-red-100 text-red-700";
+      return "bg-[#fff5f5] text-[#c43d3d]";
 
     case "pending":
-      return "bg-orange-100 text-orange-700";
+      return "bg-[#fff4e5] text-[#b7791f]";
 
     default:
-      return "bg-slate-100 text-slate-600";
+      return "bg-[#eef1ee] text-[#68736c]";
   }
 };
 
@@ -68,10 +68,10 @@ const SalesTable = ({ sales }: SalesTableProps) => {
 
   if (sales.length === 0) {
     return (
-      <div className="rounded-xl border border-[#e5edc5] bg-white px-6 py-12 text-center">
-        <p className="text-base font-semibold text-[#17213d]">No sales found</p>
+      <div className="rounded-xl border border-[#dce5da] bg-white px-6 py-12 text-center">
+        <p className="text-base font-semibold text-[#173f35]">No sales found</p>
 
-        <p className="mt-1 text-sm text-[#667697]">
+        <p className="mt-1 text-sm text-[#68736c]">
           There are no sales transactions for the selected period.
         </p>
       </div>
@@ -79,41 +79,41 @@ const SalesTable = ({ sales }: SalesTableProps) => {
   }
 
   return (
-    <div className="overflow-hidden rounded-xl border border-[#e5edc5] bg-white">
+    <div className="overflow-hidden rounded-xl border border-[#dce5da] bg-white">
       {/* Desktop Table */}
       <div className="hidden overflow-x-auto md:block">
         <table className="w-full min-w-[900px]">
           <thead>
-            <tr className="border-b border-[#e5edc5] bg-[#faffdf]">
-              <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wide text-[#667697]">
+            <tr className="border-b border-[#dce5da] bg-[#f9fbf7]">
+              <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wide text-[#68736c]">
                 Date
               </th>
 
-              <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wide text-[#667697]">
+              <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wide text-[#68736c]">
                 Customer
               </th>
 
-              <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wide text-[#667697]">
+              <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wide text-[#68736c]">
                 Description
               </th>
 
-              <th className="px-5 py-4 text-right text-xs font-semibold uppercase tracking-wide text-[#667697]">
+              <th className="px-5 py-4 text-right text-xs font-semibold uppercase tracking-wide text-[#68736c]">
                 Amount
               </th>
 
-              <th className="px-5 py-4 text-center text-xs font-semibold uppercase tracking-wide text-[#667697]">
+              <th className="px-5 py-4 text-center text-xs font-semibold uppercase tracking-wide text-[#68736c]">
                 Status
               </th>
 
-              <th className="px-5 py-4 text-right text-xs font-semibold uppercase tracking-wide text-[#667697]">
+              <th className="px-5 py-4 text-right text-xs font-semibold uppercase tracking-wide text-[#68736c]">
                 Paid
               </th>
 
-              <th className="px-5 py-4 text-right text-xs font-semibold uppercase tracking-wide text-[#667697]">
+              <th className="px-5 py-4 text-right text-xs font-semibold uppercase tracking-wide text-[#68736c]">
                 Outstanding
               </th>
 
-              <th className="px-5 py-4 text-center text-xs font-semibold uppercase tracking-wide text-[#667697]">
+              <th className="px-5 py-4 text-center text-xs font-semibold uppercase tracking-wide text-[#68736c]">
                 Action
               </th>
             </tr>
@@ -123,21 +123,21 @@ const SalesTable = ({ sales }: SalesTableProps) => {
             {sales.map((sale) => (
               <tr
                 key={sale.transactionId}
-                className="border-b border-[#edf1da] last:border-b-0 hover:bg-[#faffdf]/50"
+                className="border-b border-[#edf1eb] last:border-b-0 hover:bg-[#f9fbf7]"
               >
-                <td className="whitespace-nowrap px-5 py-4 text-sm text-[#17213d]">
+                <td className="whitespace-nowrap px-5 py-4 text-sm text-[#17231f]">
                   {formatDate(sale.date)}
                 </td>
 
-                <td className="px-5 py-4 text-sm font-medium text-[#17213d]">
+                <td className="px-5 py-4 text-sm font-medium text-[#173f35]">
                   {sale.customer || "Walk-in Customer"}
                 </td>
 
-                <td className="max-w-[240px] truncate px-5 py-4 text-sm text-[#667697]">
+                <td className="max-w-[240px] truncate px-5 py-4 text-sm text-[#68736c]">
                   {sale.description}
                 </td>
 
-                <td className="whitespace-nowrap px-5 py-4 text-right text-sm font-semibold text-[#17213d]">
+                <td className="whitespace-nowrap px-5 py-4 text-right font-financial text-sm font-semibold text-[#173f35]">
                   {formatCurrency(sale.amount)}
                 </td>
 
@@ -151,11 +151,11 @@ const SalesTable = ({ sales }: SalesTableProps) => {
                   </span>
                 </td>
 
-                <td className="whitespace-nowrap px-5 py-4 text-right text-sm text-[#17213d]">
+                <td className="whitespace-nowrap px-5 py-4 text-right font-financial text-sm text-[#17231f]">
                   {formatCurrency(sale.paidAmount)}
                 </td>
 
-                <td className="whitespace-nowrap px-5 py-4 text-right text-sm font-medium text-[#17213d]">
+                <td className="whitespace-nowrap px-5 py-4 text-right font-financial text-sm font-medium text-[#173f35]">
                   {formatCurrency(sale.outstandingAmount)}
                 </td>
 
@@ -165,7 +165,7 @@ const SalesTable = ({ sales }: SalesTableProps) => {
                     onClick={() =>
                       navigate(`/owner/transactions/${sale.transactionId}`)
                     }
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[#d8e69e] text-[#17213d] transition hover:bg-[#faffdf]"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[#dce5da] text-[#173f35] transition hover:bg-[#e4f2de]"
                     title="View transaction"
                   >
                     <Eye size={17} />
@@ -178,16 +178,16 @@ const SalesTable = ({ sales }: SalesTableProps) => {
       </div>
 
       {/* Mobile Cards */}
-      <div className="divide-y divide-[#edf1da] md:hidden">
+      <div className="divide-y divide-[#edf1eb] md:hidden">
         {sales.map((sale) => (
           <div key={sale.transactionId} className="p-4">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <p className="text-sm font-semibold text-[#17213d]">
+                <p className="text-sm font-semibold text-[#173f35]">
                   {sale.customer || "Walk-in Customer"}
                 </p>
 
-                <p className="mt-1 text-xs text-[#667697]">
+                <p className="mt-1 text-xs text-[#68736c]">
                   {formatDate(sale.date)}
                 </p>
               </div>
@@ -201,26 +201,26 @@ const SalesTable = ({ sales }: SalesTableProps) => {
               </span>
             </div>
 
-            <p className="mt-3 text-sm text-[#667697]">{sale.description}</p>
+            <p className="mt-3 text-sm text-[#68736c]">{sale.description}</p>
 
             <div className="mt-4 grid grid-cols-2 gap-3">
               <div>
-                <p className="text-xs text-[#667697]">Amount</p>
-                <p className="mt-1 text-sm font-semibold text-[#17213d]">
+                <p className="text-xs text-[#68736c]">Amount</p>
+                <p className="mt-1 font-financial text-sm font-semibold text-[#173f35]">
                   {formatCurrency(sale.amount)}
                 </p>
               </div>
 
               <div>
-                <p className="text-xs text-[#667697]">Paid</p>
-                <p className="mt-1 text-sm font-semibold text-[#17213d]">
+                <p className="text-xs text-[#68736c]">Paid</p>
+                <p className="mt-1 font-financial text-sm font-semibold text-[#17231f]">
                   {formatCurrency(sale.paidAmount)}
                 </p>
               </div>
 
               <div>
-                <p className="text-xs text-[#667697]">Outstanding</p>
-                <p className="mt-1 text-sm font-semibold text-[#17213d]">
+                <p className="text-xs text-[#68736c]">Outstanding</p>
+                <p className="mt-1 font-financial text-sm font-semibold text-[#173f35]">
                   {formatCurrency(sale.outstandingAmount)}
                 </p>
               </div>
@@ -231,7 +231,7 @@ const SalesTable = ({ sales }: SalesTableProps) => {
                   onClick={() =>
                     navigate(`/owner/transactions/${sale.transactionId}`)
                   }
-                  className="inline-flex items-center gap-2 rounded-lg border border-[#d8e69e] px-3 py-2 text-xs font-semibold text-[#17213d] transition hover:bg-[#faffdf]"
+                  className="inline-flex items-center gap-2 rounded-lg border border-[#dce5da] px-3 py-2 text-xs font-semibold text-[#173f35] transition hover:bg-[#e4f2de]"
                 >
                   <Eye size={15} />
                   View

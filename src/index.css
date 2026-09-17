@@ -7,46 +7,288 @@
 
 @custom-variant dark (&:is(.dark *));
 
-html,
-body,
-#root {
-  font-family: "Intel One Mono", monospace;
+/* =========================================================
+   AiTreasurer — Emerald + Cream Theme
+   ========================================================= */
+
+:root {
+  /* =======================================================
+     BRAND COLORS
+     ======================================================= */
+
+  --brand: #79c267;
+  --brand-light: #e4f2de;
+  --brand-dark: #4f944d;
+
+  /* =======================================================
+     BASE
+     ======================================================= */
+
+  --background: #f5f7f2;
+  --foreground: #17231f;
+
+  /* =======================================================
+     CARDS / POPOVERS
+     ======================================================= */
+
+  --card: #ffffff;
+  --card-foreground: #17231f;
+
+  --popover: #ffffff;
+  --popover-foreground: #17231f;
+
+  /* =======================================================
+     PRIMARY
+     ======================================================= */
+
+  --primary: #173f35;
+  --primary-foreground: #ffffff;
+
+  /* =======================================================
+     SECONDARY
+     ======================================================= */
+
+  --secondary: #edf2ea;
+  --secondary-foreground: #173f35;
+
+  /* =======================================================
+     MUTED
+     ======================================================= */
+
+  --muted: #edf2ea;
+  --muted-foreground: #68736c;
+
+  /* =======================================================
+     ACCENT
+     ======================================================= */
+
+  --accent: #e4f2de;
+  --accent-foreground: #173f35;
+
+  /* =======================================================
+     STATUS
+     ======================================================= */
+
+  --destructive: #c43d3d;
+
+  --success: #238636;
+  --success-light: #e5f4e8;
+
+  --warning: #b7791f;
+  --warning-light: #fff3d6;
+
+  /* =======================================================
+     BORDERS / INPUTS
+     ======================================================= */
+
+  --border: #dce5da;
+  --input: #d3ded0;
+  --ring: #79c267;
+
+  /* =======================================================
+     CHART COLORS
+     ======================================================= */
+
+  --chart-1: #4f944d;
+  --chart-2: #173f35;
+  --chart-3: #79c267;
+  --chart-4: #91b889;
+  --chart-5: #c6d8bc;
+
+  /* =======================================================
+     SIDEBAR
+     ======================================================= */
+
+  --sidebar: #ffffff;
+  --sidebar-foreground: #17231f;
+
+  --sidebar-primary: #173f35;
+  --sidebar-primary-foreground: #ffffff;
+
+  --sidebar-accent: #e4f2de;
+  --sidebar-accent-foreground: #173f35;
+
+  --sidebar-border: #dce5da;
+  --sidebar-ring: #79c267;
+
+  /* =======================================================
+     RADIUS
+     ======================================================= */
+
+  --radius: 0.75rem;
 }
 
+/* =========================================================
+   DARK MODE
+   ========================================================= */
+
+.dark {
+  /* Base */
+
+  --background: #101914;
+  --foreground: #edf5ec;
+
+  /* Cards */
+
+  --card: #17241d;
+  --card-foreground: #edf5ec;
+
+  --popover: #17241d;
+  --popover-foreground: #edf5ec;
+
+  /* Primary */
+
+  --primary: #79c267;
+  --primary-foreground: #173f35;
+
+  /* Secondary */
+
+  --secondary: #223128;
+  --secondary-foreground: #edf5ec;
+
+  /* Muted */
+
+  --muted: #223128;
+  --muted-foreground: #a4b0a7;
+
+  /* Accent */
+
+  --accent: #294029;
+  --accent-foreground: #edf5ec;
+
+  /* Status */
+
+  --destructive: #ef6b6b;
+
+  --success: #63c574;
+  --success-light: #1d3825;
+
+  --warning: #e1b04d;
+  --warning-light: #3b321b;
+
+  /* Borders */
+
+  --border: #2d3b31;
+  --input: #35453a;
+  --ring: #79c267;
+
+  /* Charts */
+
+  --chart-1: #79c267;
+  --chart-2: #b7dca9;
+  --chart-3: #4f944d;
+  --chart-4: #91b889;
+  --chart-5: #526a50;
+
+  /* Sidebar */
+
+  --sidebar: #141e18;
+  --sidebar-foreground: #edf5ec;
+
+  --sidebar-primary: #79c267;
+  --sidebar-primary-foreground: #173f35;
+
+  --sidebar-accent: #294029;
+  --sidebar-accent-foreground: #edf5ec;
+
+  --sidebar-border: #2d3b31;
+  --sidebar-ring: #79c267;
+}
+
+/* =========================================================
+   TAILWIND THEME
+   ========================================================= */
+
 @theme inline {
-  --font-heading: var(--font-sans);
+  /* -------------------------------------------------------
+     Fonts
+     ------------------------------------------------------- */
+
   --font-sans: "Geist Variable", sans-serif;
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --color-foreground: var(--foreground);
+
+  --font-heading: "Geist Variable", sans-serif;
+
+  --font-mono: "Intel One Mono", monospace;
+
+  /* -------------------------------------------------------
+     Core Colors
+     ------------------------------------------------------- */
+
   --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* -------------------------------------------------------
+     Brand Colors
+     ------------------------------------------------------- */
+
+  --color-brand: var(--brand);
+  --color-brand-light: var(--brand-light);
+  --color-brand-dark: var(--brand-dark);
+
+  /* -------------------------------------------------------
+     Status Colors
+     ------------------------------------------------------- */
+
+  --color-success: var(--success);
+  --color-success-light: var(--success-light);
+
+  --color-warning: var(--warning);
+  --color-warning-light: var(--warning-light);
+
+  /* -------------------------------------------------------
+     Sidebar
+     ------------------------------------------------------- */
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* -------------------------------------------------------
+     Charts
+     ------------------------------------------------------- */
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* -------------------------------------------------------
+     Radius
+     ------------------------------------------------------- */
+
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -56,83 +298,60 @@ body,
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-:root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-}
-
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
-}
+/* =========================================================
+   BASE STYLES
+   ========================================================= */
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
+
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+
+    margin: 0;
+    min-width: 320px;
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+}
+
+/* =========================================================
+   AiTreasurer TYPOGRAPHY HELPERS
+   ========================================================= */
+
+/*
+ * Use for money, account numbers, transaction amounts,
+ * percentages and other financial values.
+ */
+
+@layer utilities {
+  .font-financial {
+    font-family: "Intel One Mono", monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /*
+   * Use for technical information such as:
+   * transaction IDs, account codes, API-related labels, etc.
+   */
+
+  .font-technical {
+    font-family: "Intel One Mono", monospace;
   }
 }

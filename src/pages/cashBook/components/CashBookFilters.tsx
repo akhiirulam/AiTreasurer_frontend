@@ -43,7 +43,7 @@ const CashBookFilters = ({
   loading = false,
 }: CashBookFiltersProps) => {
   return (
-    <div className="mb-6 rounded-3xl border border-[#d8e69e] bg-[#faffdf] p-4 shadow-sm sm:p-6">
+    <div className="mb-6 rounded-3xl border border-[#dce5da] bg-white p-4 shadow-sm sm:p-6">
       <div className="grid gap-4 md:grid-cols-3">
         {/* =====================================================
             ACCOUNT
@@ -52,7 +52,7 @@ const CashBookFilters = ({
         <div>
           <label
             htmlFor="cash-book-account"
-            className="mb-2 block text-xs font-black uppercase tracking-wide text-[#667697]"
+            className="mb-2 block text-xs font-semibold uppercase tracking-wider text-[#68736c]"
           >
             Account
           </label>
@@ -61,7 +61,7 @@ const CashBookFilters = ({
             id="cash-book-account"
             value={selectedAccountId}
             onChange={(event) => onAccountChange(event.target.value)}
-            className="w-full rounded-xl border border-[#cbd99a] bg-white px-4 py-3 text-sm font-semibold outline-none transition focus:border-[#292727] focus:ring-2 focus:ring-[#dce9a5]"
+            className="h-12 w-full rounded-xl border border-[#dce5da] bg-[#f9fbf7] px-4 text-sm font-medium text-[#17231f] outline-none transition focus:border-[#173f35] focus:bg-white focus:ring-2 focus:ring-[#e4f2de]"
           >
             <option value="all">All accounts</option>
 
@@ -80,7 +80,7 @@ const CashBookFilters = ({
         <div>
           <label
             htmlFor="cash-book-from"
-            className="mb-2 block text-xs font-black uppercase tracking-wide text-[#667697]"
+            className="mb-2 block text-xs font-semibold uppercase tracking-wider text-[#68736c]"
           >
             From
           </label>
@@ -88,7 +88,7 @@ const CashBookFilters = ({
           <div className="relative">
             <CalendarDays
               size={17}
-              className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#667697]"
+              className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#68736c]"
             />
 
             <input
@@ -96,7 +96,7 @@ const CashBookFilters = ({
               type="date"
               value={from}
               onChange={(event) => onFromChange(event.target.value)}
-              className="w-full rounded-xl border border-[#cbd99a] bg-white px-10 py-3 text-sm font-semibold outline-none transition focus:border-[#292727] focus:ring-2 focus:ring-[#dce9a5]"
+              className="h-12 w-full rounded-xl border border-[#dce5da] bg-[#f9fbf7] px-10 py-3 text-sm font-medium text-[#17231f] outline-none transition focus:border-[#173f35] focus:bg-white focus:ring-2 focus:ring-[#e4f2de]"
             />
           </div>
         </div>
@@ -108,7 +108,7 @@ const CashBookFilters = ({
         <div>
           <label
             htmlFor="cash-book-to"
-            className="mb-2 block text-xs font-black uppercase tracking-wide text-[#667697]"
+            className="mb-2 block text-xs font-semibold uppercase tracking-wider text-[#68736c]"
           >
             To
           </label>
@@ -116,7 +116,7 @@ const CashBookFilters = ({
           <div className="relative">
             <CalendarDays
               size={17}
-              className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#667697]"
+              className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#68736c]"
             />
 
             <input
@@ -125,7 +125,7 @@ const CashBookFilters = ({
               value={to}
               min={from || undefined}
               onChange={(event) => onToChange(event.target.value)}
-              className="w-full rounded-xl border border-[#cbd99a] bg-white px-10 py-3 text-sm font-semibold outline-none transition focus:border-[#292727] focus:ring-2 focus:ring-[#dce9a5]"
+              className="h-12 w-full rounded-xl border border-[#dce5da] bg-[#f9fbf7] px-10 py-3 text-sm font-medium text-[#17231f] outline-none transition focus:border-[#173f35] focus:bg-white focus:ring-2 focus:ring-[#e4f2de]"
             />
           </div>
         </div>
@@ -140,7 +140,7 @@ const CashBookFilters = ({
           type="button"
           onClick={onApply}
           disabled={loading}
-          className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#292727] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#181818] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+          className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#173f35] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#102e27] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
         >
           <CalendarDays size={16} />
 
@@ -151,7 +151,7 @@ const CashBookFilters = ({
           type="button"
           onClick={onReset}
           disabled={loading}
-          className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-[#292727] bg-transparent px-5 py-3 text-sm font-bold text-[#292727] transition hover:bg-[#292727] hover:text-white disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+          className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-[#dce5da] bg-white px-5 py-3 text-sm font-semibold text-[#173f35] transition hover:bg-[#e4f2de] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
         >
           <RefreshCw size={16} />
           Reset

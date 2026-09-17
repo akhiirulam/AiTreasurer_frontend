@@ -28,14 +28,14 @@ const SummaryCard = ({
     <div
       className={`rounded-2xl border p-4 ${
         dark
-          ? "border-[#292727] bg-[#292727] text-white"
-          : "border-[#d8e69e] bg-[#faffdf]"
+          ? "border-[#173f35] bg-[#173f35] text-white"
+          : "border-[#dce5da] bg-white"
       }`}
     >
       <div className="flex items-center justify-between gap-3">
         <p
-          className={`text-xs font-bold ${
-            dark ? "text-[#cbd99a]" : "text-[#667697]"
+          className={`text-xs font-bold uppercase tracking-wide ${
+            dark ? "text-[#cfe4c9]" : "text-[#68736c]"
           }`}
         >
           {label}
@@ -43,14 +43,20 @@ const SummaryCard = ({
 
         <div
           className={`flex h-8 w-8 items-center justify-center rounded-lg ${
-            dark ? "bg-white/10 text-[#cbd99a]" : "bg-[#eaf4bd] text-[#292727]"
+            dark ? "bg-white/10 text-[#e4f2de]" : "bg-[#e4f2de] text-[#173f35]"
           }`}
         >
           {icon}
         </div>
       </div>
 
-      <p className="mt-3 text-xl font-black">{formatCurrency(value)}</p>
+      <p
+        className={`mt-3 text-xl font-black font-financial ${
+          dark ? "text-white" : "text-[#17231f]"
+        }`}
+      >
+        {formatCurrency(value)}
+      </p>
     </div>
   );
 };

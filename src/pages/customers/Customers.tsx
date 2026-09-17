@@ -86,7 +86,7 @@ const Customers = () => {
 
   const handleDeleteCustomer = async (customer: Customer) => {
     const confirmed = window.confirm(
-      `Are you sure you want to deactivate Akhil? ${customer.name}?`,
+      `Are you sure you want to deactivate ${customer.name}?`,
     );
 
     if (!confirmed) {
@@ -101,7 +101,7 @@ const Customers = () => {
   };
 
   return (
-    <div className="min-h-full bg-[#f8f9f1] px-4 py-6 sm:px-6 lg:px-8">
+    <div className="min-h-full bg-[#f5f7f2] px-4 py-6 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-[1600px]">
         {/* =================================================
             HEADER
@@ -114,7 +114,7 @@ const Customers = () => {
         ================================================= */}
 
         {error && (
-          <div className="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-600">
+          <div className="mb-6 rounded-xl border border-[#f0caca] bg-[#fff5f5] px-4 py-3 text-sm font-semibold text-[#c43d3d]">
             {error}
           </div>
         )}
@@ -159,9 +159,9 @@ const Customers = () => {
         ================================================= */}
 
         {editingCustomer && (
-          <div className="mt-4 text-xs text-[#667697]">
+          <div className="mt-4 text-xs text-[#68736c]">
             Editing:{" "}
-            <span className="font-bold text-[#17213d]">
+            <span className="font-bold text-[#173f35]">
               {editingCustomer.name}
             </span>
           </div>

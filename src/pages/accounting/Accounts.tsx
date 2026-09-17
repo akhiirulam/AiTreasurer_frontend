@@ -1,5 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowRight, ChevronDown, ChevronUp, Search, X } from "lucide-react";
+import {
+  ArrowRight,
+  ChevronDown,
+  ChevronUp,
+  Search,
+  X,
+  BookOpen,
+  Layers3,
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 import accountApi from "../../services/account.api";
@@ -31,6 +39,14 @@ const GROUP_LABELS: Record<AccountType, string> = {
   equity: "Equity",
   income: "Income",
   expense: "Expenses",
+};
+
+const GROUP_ICONS: Record<AccountType, React.ReactNode> = {
+  asset: <Layers3 size={18} />,
+  liability: <BookOpen size={18} />,
+  equity: <BookOpen size={18} />,
+  income: <BookOpen size={18} />,
+  expense: <BookOpen size={18} />,
 };
 
 const Accounts = () => {
@@ -148,14 +164,17 @@ const Accounts = () => {
 
   if (loading) {
     return (
-      <div className="min-h-full bg-[#efffc2] p-5 sm:p-8">
+      <div className="min-h-full bg-[#f5f7f2] p-4 sm:p-6 lg:p-8">
         <div className="mx-auto max-w-7xl">
           <div className="animate-pulse">
-            <div className="mb-4 h-4 w-32 rounded bg-slate-200" />
-            <div className="mb-3 h-12 w-64 rounded bg-slate-200" />
-            <div className="h-5 w-96 max-w-full rounded bg-slate-200" />
+            <div className="mb-3 h-3 w-28 rounded bg-[#dce5da]" />
+
+            <div className="mb-3 h-12 w-64 rounded-xl bg-[#dce5da]" />
+
+            <div className="h-5 w-96 max-w-full rounded bg-[#dce5da]" />
 
             <div className="mt-8 h-24 rounded-3xl bg-white" />
+
             <div className="mt-5 h-64 rounded-3xl bg-white" />
           </div>
         </div>
@@ -164,22 +183,28 @@ const Accounts = () => {
   }
 
   return (
-    <div className="min-h-full bg-[#efffc2] p-4 sm:p-6 lg:p-8">
-      <div className="mx-auto max-w-7xl">
+    <div className="min-h-full w-full bg-[#f5f7f2] px-4 py-6 sm:px-6 md:px-8 lg:px-10">
+      <div className="mx-auto w-full max-w-7xl">
         {/* ==================================================
             HEADER
         ================================================== */}
 
-        <div className="mb-7">
-          <p className="mb-2 font-mono text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
-            Accounting
-          </p>
+        <div className="mb-8">
+          <div className="mb-3 flex items-center gap-2">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#e4f2de] text-[#173f35]">
+              <BookOpen size={17} />
+            </div>
 
-          <h1 className="font-mono text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#238636]">
+              Accounting
+            </p>
+          </div>
+
+          <h1 className="text-3xl font-bold tracking-tight text-[#17231f] sm:text-4xl">
             Accounts
           </h1>
 
-          <p className="mt-2 font-mono text-sm text-slate-500 sm:text-base">
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-[#68736c] sm:text-base">
             View the accounts created and used by your business.
           </p>
         </div>
@@ -188,14 +213,14 @@ const Accounts = () => {
             CONTROLS
         ================================================== */}
 
-        <div className="mb-6 rounded-3xl border border-slate-200 bg-white p-3 shadow-sm sm:p-4">
+        <div className="mb-6 rounded-3xl border border-[#dce5da] bg-white p-3 shadow-sm sm:p-4">
           <div className="flex flex-col gap-3 md:flex-row">
             {/* Search */}
 
             <div className="relative flex-1">
               <Search
                 size={18}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-[#68736c]"
               />
 
               <input
@@ -203,14 +228,14 @@ const Accounts = () => {
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
                 placeholder="Search accounts..."
-                className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-11 font-mono text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-400 focus:bg-white"
+                className="h-12 w-full rounded-xl border border-[#dce5da] bg-[#f9fbf7] pl-11 pr-11 text-sm text-[#17231f] outline-none transition placeholder:text-[#68736c] focus:border-[#173f35] focus:bg-white focus:ring-2 focus:ring-[#e4f2de]"
               />
 
               {search && (
                 <button
                   type="button"
                   onClick={clearSearch}
-                  className="absolute right-3 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-lg text-slate-400 hover:bg-slate-200 hover:text-slate-900"
+                  className="absolute right-3 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-lg text-[#68736c] transition hover:bg-[#e4f2de] hover:text-[#173f35]"
                 >
                   <X size={16} />
                 </button>
@@ -224,7 +249,7 @@ const Accounts = () => {
               onChange={(event) =>
                 setTypeFilter(event.target.value as "all" | AccountType)
               }
-              className="h-12 rounded-xl border border-slate-200 bg-slate-50 px-4 font-mono text-sm text-slate-700 outline-none focus:border-slate-400 focus:bg-white md:min-w-[220px]"
+              className="h-12 rounded-xl border border-[#dce5da] bg-[#f9fbf7] px-4 text-sm text-[#17231f] outline-none transition focus:border-[#173f35] focus:bg-white focus:ring-2 focus:ring-[#e4f2de] md:min-w-[220px]"
             >
               {ACCOUNT_TYPES.map((type) => (
                 <option key={type.value} value={type.value}>
@@ -236,8 +261,8 @@ const Accounts = () => {
 
           {/* Result count */}
 
-          <div className="mt-3 px-1 font-mono text-xs text-slate-400">
-            {filteredAccounts.length}{" "}
+          <div className="mt-3 px-1 text-xs text-[#68736c]">
+            <span className="font-financial">{filteredAccounts.length}</span>{" "}
             {filteredAccounts.length === 1 ? "account" : "accounts"} found
           </div>
         </div>
@@ -247,12 +272,16 @@ const Accounts = () => {
         ================================================== */}
 
         {filteredAccounts.length === 0 && (
-          <div className="rounded-3xl border border-slate-200 bg-white px-6 py-16 text-center shadow-sm">
-            <p className="font-mono text-base font-semibold text-slate-900">
+          <div className="rounded-3xl border border-[#dce5da] bg-white px-6 py-20 text-center shadow-sm">
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#e4f2de] text-[#173f35]">
+              <BookOpen size={24} />
+            </div>
+
+            <p className="mt-5 text-sm font-semibold text-[#17231f]">
               No accounts found
             </p>
 
-            <p className="mt-2 font-mono text-sm text-slate-400">
+            <p className="mt-2 text-sm leading-6 text-[#68736c]">
               {search
                 ? `No accounts match "${search}".`
                 : "Accounts will appear here when transactions create them."}
@@ -285,36 +314,38 @@ const Accounts = () => {
             return (
               <section
                 key={type}
-                className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm"
+                className="overflow-hidden rounded-3xl border border-[#dce5da] bg-white shadow-sm"
               >
                 {/* Group header */}
 
                 <button
                   type="button"
                   onClick={() => toggleGroup(type)}
-                  className="flex w-full items-center justify-between border-b border-slate-200 bg-slate-50 px-5 py-5 text-left transition hover:bg-slate-100 sm:px-7"
+                  className="flex w-full items-center justify-between border-b border-[#dce5da] bg-[#f9fbf7] px-5 py-5 text-left transition hover:bg-[#f1f6ee] sm:px-7"
                 >
-                  <div className="flex flex-wrap items-center gap-3">
-                    <h2 className="font-mono text-sm font-bold uppercase tracking-[0.2em] text-slate-900">
-                      {GROUP_LABELS[type]}
-                    </h2>
+                  <div className="flex min-w-0 items-center gap-3">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#e4f2de] text-[#173f35]">
+                      {GROUP_ICONS[type]}
+                    </div>
 
-                    <span className="flex h-8 min-w-8 items-center justify-center rounded-full bg-slate-200 px-2 font-mono text-xs font-semibold text-slate-700">
-                      {group.length}
-                    </span>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h2 className="text-sm font-bold uppercase tracking-[0.18em] text-[#173f35]">
+                        {GROUP_LABELS[type]}
+                      </h2>
 
-                    <span className="font-mono text-xs text-slate-400">
-                      {group.length === 1
-                        ? "1 account"
-                        : `${group.length} accounts`}
-                    </span>
+                      <span className="font-financial flex h-7 min-w-7 items-center justify-center rounded-full bg-[#173f35] px-2 text-xs font-semibold text-white">
+                        {group.length}
+                      </span>
+                    </div>
                   </div>
 
-                  {collapsed ? (
-                    <ChevronDown size={20} />
-                  ) : (
-                    <ChevronUp size={20} />
-                  )}
+                  <div className="ml-4 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-[#68736c] transition hover:bg-[#e4f2de] hover:text-[#173f35]">
+                    {collapsed ? (
+                      <ChevronDown size={19} />
+                    ) : (
+                      <ChevronUp size={19} />
+                    )}
+                  </div>
                 </button>
 
                 {/* Accounts */}
@@ -328,30 +359,35 @@ const Accounts = () => {
                         onClick={() =>
                           navigate(`/owner/accounts/${account._id}`)
                         }
-                        className="group flex w-full flex-col gap-4 border-b border-slate-100 px-5 py-5 text-left transition last:border-b-0 hover:bg-slate-50 sm:flex-row sm:items-center sm:justify-between sm:px-7"
+                        className="group flex w-full flex-col gap-4 border-b border-[#edf1eb] px-5 py-5 text-left transition last:border-b-0 hover:bg-[#f9fbf7] sm:flex-row sm:items-center sm:justify-between sm:px-7"
                       >
                         {/* Account information */}
 
                         <div className="min-w-0">
                           <div className="flex flex-wrap items-center gap-2">
-                            <h3 className="font-mono text-sm font-bold text-slate-950 sm:text-base">
+                            <h3 className="text-sm font-semibold text-[#17231f] sm:text-base">
                               {account.name}
                             </h3>
 
                             {account.isSystem && (
-                              <span className="rounded-full bg-slate-100 px-2.5 py-1 font-mono text-[10px] font-semibold text-slate-500">
+                              <span className="rounded-full bg-[#e4f2de] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-[#173f35]">
                                 System
                               </span>
                             )}
                           </div>
 
-                          <div className="mt-1 flex flex-wrap items-center gap-2 font-mono text-xs text-slate-500">
-                            <span>{account.code}</span>
+                          <div className="mt-1.5 flex flex-wrap items-center gap-2 text-xs text-[#68736c]">
+                            <span className="font-technical">
+                              {account.code}
+                            </span>
 
                             {account.subCategory && (
                               <>
                                 <span>•</span>
-                                <span>{account.subCategory}</span>
+
+                                <span>
+                                  {account.subCategory.replace(/_/g, " ")}
+                                </span>
                               </>
                             )}
                           </div>
@@ -360,14 +396,16 @@ const Accounts = () => {
                         {/* Type + arrow */}
 
                         <div className="flex shrink-0 items-center justify-between gap-4 sm:justify-end">
-                          <span className="font-mono text-xs font-medium text-slate-500">
+                          <span className="rounded-full border border-[#dce5da] bg-[#f9fbf7] px-3 py-1.5 text-xs font-medium text-[#68736c]">
                             {TYPE_LABELS[type]}
                           </span>
 
-                          <ArrowRight
-                            size={20}
-                            className="text-slate-400 transition-transform group-hover:translate-x-1 group-hover:text-slate-900"
-                          />
+                          <div className="flex h-9 w-9 items-center justify-center rounded-xl text-[#68736c] transition group-hover:bg-[#e4f2de] group-hover:text-[#173f35]">
+                            <ArrowRight
+                              size={19}
+                              className="transition-transform group-hover:translate-x-0.5"
+                            />
+                          </div>
                         </div>
                       </button>
                     ))}

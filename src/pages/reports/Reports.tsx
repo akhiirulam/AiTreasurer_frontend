@@ -13,7 +13,7 @@ const Reports = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8f9f1] px-4 py-6 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#f5f7f2] px-4 py-6 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <ReportsHeader />
@@ -23,7 +23,7 @@ const Reports = () => {
 
         {/* Error */}
         {error && (
-          <div className="mb-6 rounded-xl border border-red-200 bg-red-50 px-5 py-4 text-sm text-red-700">
+          <div className="mb-6 rounded-xl border border-[#f0caca] bg-[#fff5f5] px-5 py-4 text-sm text-[#c43d3d]">
             {error}
           </div>
         )}
@@ -31,7 +31,7 @@ const Reports = () => {
         {/* Loading */}
         {loading && !report && (
           <div className="flex min-h-[300px] items-center justify-center">
-            <div className="text-sm font-medium text-[#667697]">
+            <div className="text-sm font-medium text-[#68736c]">
               Loading reports...
             </div>
           </div>
@@ -47,15 +47,15 @@ const Reports = () => {
             <ReportsFinancialSummary summary={report.summary} />
 
             {/* Selected Period */}
-            <div className="mt-6 text-center text-xs text-[#667697]">
+            <div className="mt-6 text-center text-xs text-[#68736c]">
               {report.period.from && report.period.to ? (
                 <>
                   Showing report from{" "}
-                  <span className="font-medium text-[#17213d]">
+                  <span className="font-technical font-medium text-[#173f35]">
                     {new Date(report.period.from).toLocaleDateString("en-IN")}
                   </span>{" "}
                   to{" "}
-                  <span className="font-medium text-[#17213d]">
+                  <span className="font-technical font-medium text-[#173f35]">
                     {new Date(report.period.to).toLocaleDateString("en-IN")}
                   </span>
                 </>
