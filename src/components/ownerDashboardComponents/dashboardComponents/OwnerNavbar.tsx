@@ -1,7 +1,15 @@
 import { useContext, useState } from "react";
 
-import { Menu, UserCircle, LogOut } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import {
+  Menu,
+  UserCircle,
+  LogOut,
+  LayoutDashboard,
+  ReceiptText,
+  BarChart3,
+} from "lucide-react";
+
+import { NavLink, useNavigate } from "react-router-dom";
 
 import logo from "../../../assets/aitreasurer-navbar-logo.webp";
 import { AuthContext } from "../../../context/AuthContext";
@@ -34,9 +42,31 @@ const OwnerNavbar = ({ onMenuClick }: OwnerNavbarProps) => {
     }
   };
 
+  // =====================================================
+  // NAVIGATION ITEMS
+  // =====================================================
+
+  const navItems = [
+    {
+      label: "Dashboard",
+      path: "/owner/dashboard",
+      icon: LayoutDashboard,
+    },
+    {
+      label: "Transactions",
+      path: "/owner/transactions",
+      icon: ReceiptText,
+    },
+    {
+      label: "Reports",
+      path: "/owner/reports",
+      icon: BarChart3,
+    },
+  ];
+
   return (
     <header className="sticky top-0 z-30 w-full bg-[#f3ffc1] px-3 pt-2">
-      <div className="flex h-14 w-full items-center justify-between rounded-xl bg-[#292727] px-4 sm:px-5">
+      <div className="relative flex h-14 w-full items-center rounded-xl bg-[#292727] px-3 sm:px-5">
         {/* ================================================= */}
         {/* LEFT SIDE */}
         {/* ================================================= */}
@@ -47,10 +77,10 @@ const OwnerNavbar = ({ onMenuClick }: OwnerNavbarProps) => {
           <button
             type="button"
             onClick={onMenuClick}
-            className="flex items-center justify-center text-white lg:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-lg text-white transition hover:bg-white/10 lg:hidden"
             aria-label="Open sidebar"
           >
-            <Menu size={24} />
+            <Menu size={23} />
           </button>
 
           {/* LOGO */}
@@ -63,10 +93,39 @@ const OwnerNavbar = ({ onMenuClick }: OwnerNavbarProps) => {
         </div>
 
         {/* ================================================= */}
+        {/* CENTER NAVIGATION */}
+        {/* ================================================= */}
+
+        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 md:flex">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+
+            return (
+              <NavLink
+                key={item.path}
+                to={item.path}
+                end={item.path === "/"}
+                className={({ isActive }) =>
+                  `flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition lg:px-4 ${
+                    isActive
+                      ? "bg-white text-slate-900"
+                      : "text-white/75 hover:bg-white/10 hover:text-white"
+                  }`
+                }
+              >
+                <Icon size={17} strokeWidth={1.8} />
+
+                <span>{item.label}</span>
+              </NavLink>
+            );
+          })}
+        </nav>
+
+        {/* ================================================= */}
         {/* RIGHT SIDE */}
         {/* ================================================= */}
 
-        <div className="relative">
+        <div className="ml-auto relative">
           <button
             type="button"
             onClick={() => setIsProfileOpen((prev) => !prev)}

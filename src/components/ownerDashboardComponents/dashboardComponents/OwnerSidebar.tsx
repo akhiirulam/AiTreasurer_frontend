@@ -141,7 +141,7 @@ const OwnerSidebar = ({ isOpen, onClose }: OwnerSidebarProps) => {
       {/* ========================================== */}
 
       <aside
-        className={`fixed left-0 top-0 z-50 flex h-screen flex-col border-r border-slate-200 bg-white transition-all duration-300 lg:sticky lg:top-0 lg:z-20 lg:h-[calc(100vh-64px)] ${
+        className={`fixed left-0 top-0 z-50 flex h-screen flex-col border-r border-slate-200 bg-white transition-all duration-300 lg:sticky lg:top-0 lg:z-20 lg:h-screen ${
           collapsed ? "w-20" : "w-64"
         } ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}
       >

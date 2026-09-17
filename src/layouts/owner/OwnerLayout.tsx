@@ -5,35 +5,39 @@ import OwnerNavbar from "../../components/ownerDashboardComponents/dashboardComp
 import OwnerSidebar from "../../components/ownerDashboardComponents/dashboardComponents/OwnerSidebar";
 
 const OwnerLayout = () => {
-  // =====================================================
-  // MOBILE SIDEBAR
-  // =====================================================
-
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen w-full overflow-x-hidden bg-[#f3ffc1]">
-      {/* ================================================= */}
-      {/* NAVBAR */}
-      {/* ================================================= */}
+    <div className="flex h-screen w-full overflow-hidden bg-[#f3ffc1]">
+      {/* =====================================================
+          SIDEBAR
+      ===================================================== */}
 
-      <OwnerNavbar onMenuClick={() => setSidebarOpen(true)} />
+      <OwnerSidebar
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+      />
 
-      {/* ================================================= */}
-      {/* MAIN LAYOUT */}
-      {/* ================================================= */}
+      {/* =====================================================
+          RIGHT SIDE
+          NAVBAR + PAGE CONTENT
+      ===================================================== */}
 
-      <div className="flex w-full">
-        {/* SIDEBAR */}
+      <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
+        {/* =================================================
+            NAVBAR
+        ================================================= */}
 
-        <OwnerSidebar
-          isOpen={sidebarOpen}
-          onClose={() => setSidebarOpen(false)}
-        />
+        <div className="z-30 shrink-0">
+          <OwnerNavbar onMenuClick={() => setSidebarOpen(true)} />
+        </div>
 
-        {/* PAGE CONTENT */}
+        {/* =================================================
+            MAIN CONTENT
+            ONLY THIS AREA SCROLLS
+        ================================================= */}
 
-        <main className="min-w-0 flex-1">
+        <main className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden">
           <Outlet />
         </main>
       </div>
