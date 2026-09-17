@@ -40,6 +40,10 @@ import AdminDashboard from "../pages/admin/AdminDashboard";
 import Users from "../pages/admin/users/Users";
 import Register from "../pages/auth/Register";
 
+import Settings from "../pages/settings/Settings";
+import ResetPassword from "../pages/auth/ResetPassword";
+import ForgotPassword from "../pages/auth/ForgotPassword";
+
 const AppRoutes = () => {
   return (
     <Routes>
@@ -51,8 +55,9 @@ const AppRoutes = () => {
 
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-
+      <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/google-login" element={<GoogleLogin />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
 
       {/* ================================================= */}
       {/* OWNER ROUTES */}
@@ -94,6 +99,7 @@ const AppRoutes = () => {
           <Route path="/purchases" element={<Purchases />} />
 
           <Route path="/owner/reports" element={<Reports />} />
+          <Route path="/settings" element={<Settings />} />
         </Route>
       </Route>
 

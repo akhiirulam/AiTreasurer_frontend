@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Eye, EyeOff, Lock, Mail } from "lucide-react";
+import { Eye, EyeOff, Lock, Mail, ArrowLeft } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
 
@@ -15,12 +15,14 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const googleButtonRef = useRef<HTMLDivElement | null>(null);
 
   const { setAuth } = useAuth();
+
   const {
     register,
     handleSubmit,
@@ -34,7 +36,9 @@ const Login = () => {
       setIsLoading(true);
 
       const response = await loginUser(data);
+
       setAuth(response.data.user, response.data.accessToken);
+
       console.log(response);
 
       const role = response.data.user.role;
@@ -98,14 +102,28 @@ const Login = () => {
   }, [navigate, setAuth]);
 
   return (
-    <div className="min-h-screen w-full bg-[#f5ffc2] p-3 font-mono">
-      {/* Outer Frame */}
-      <div className="min-h-[calc(100vh-24px)] bg-[#f5ffc2] flex items-center justify-center">
-        <div className="w-full max-w-6xl px-6 md:px-12">
-          <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-16">
-            {/* ================= IMAGE ================= */}
-            <div className="flex items-center justify-center md:-translate-x-8 lg:-translate-x-12">
-              <div className="relative h-[320px] w-[320px] overflow-hidden rounded-full md:h-[390px] md:w-[390px]">
+    <div className="min-h-screen bg-[#f5f7f2] px-4 py-5 sm:px-6 lg:px-8">
+      {/* Back to Home */}
+      <div className="mx-auto max-w-6xl">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm font-medium text-[#68736c] transition hover:bg-[#e4f2de] hover:text-[#173f35]"
+        >
+          <ArrowLeft size={16} />
+          Back to home
+        </Link>
+      </div>
+
+      {/* Main */}
+      <div className="mx-auto flex min-h-[calc(100vh-80px)] max-w-6xl items-center justify-center py-8">
+        <div className="grid w-full grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+          {/* ================= IMAGE ================= */}
+          <div className="flex justify-center lg:justify-start">
+            <div className="relative">
+              {/* Soft background decoration */}
+              <div className="absolute inset-0 scale-90 rounded-full bg-[#e4f2de] blur-2xl" />
+
+              <div className="relative h-56 w-56 overflow-hidden rounded-full border-8 border-white shadow-lg sm:h-72 sm:w-72 lg:h-[390px] lg:w-[390px]">
                 <img
                   src={loginImage}
                   alt="AI Treasurer"
@@ -113,48 +131,65 @@ const Login = () => {
                 />
               </div>
             </div>
+          </div>
 
-            {/* ================= LOGIN ================= */}
-            <div className="bg-white border border-slate-200 rounded-2xl shadow-sm p-8">
-              {/* Heading */}
+          {/* ================= LOGIN CARD ================= */}
+          <div className="w-full max-w-md mx-auto lg:mx-0">
+            <div className="rounded-2xl border border-[#dce5da] bg-white p-6 shadow-sm sm:p-8">
+              {/* Logo / Brand */}
               <div className="mb-7">
-                <h2 className="text-2xl font-semibold text-slate-900">
-                  AiTreasurer
+                <div className="mb-5 flex items-center gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#173f35] shadow-sm">
+                    <span className="text-lg font-bold text-white">Ai</span>
+                  </div>
+
+                  <div>
+                    <h1 className="text-lg font-bold tracking-tight text-[#173f35]">
+                      AiTreasurer
+                    </h1>
+
+                    <p className="text-xs text-[#68736c]">Smart accounting</p>
+                  </div>
+                </div>
+
+                <h2 className="text-2xl font-bold tracking-tight text-[#17231f]">
+                  Welcome back
                 </h2>
 
-                <p className="mt-2 text-sm text-slate-500">
+                <p className="mt-2 text-sm leading-6 text-[#68736c]">
                   Sign in to manage your business finances.
                 </p>
               </div>
 
-              {/* Login Form */}
+              {/* ================= FORM ================= */}
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                 {/* Email */}
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium text-slate-700 mb-2"
+                    className="mb-2 block text-sm font-medium text-[#17231f]"
                   >
-                    Email
+                    Email address
                   </label>
 
                   <div className="relative">
                     <Mail
                       size={18}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                      className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#68736c]"
                     />
 
                     <input
                       id="email"
                       type="email"
                       placeholder="you@example.com"
+                      autoComplete="email"
                       {...register("email")}
-                      className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
+                      className="w-full rounded-xl border border-[#dce5da] bg-[#f9fbf7] py-3 pl-11 pr-4 text-sm text-[#17231f] outline-none transition placeholder:text-[#9aa59f] focus:border-[#173f35] focus:bg-white focus:ring-2 focus:ring-[#e4f2de]"
                     />
                   </div>
 
                   {errors.email && (
-                    <p className="mt-1.5 text-xs text-red-500">
+                    <p className="mt-1.5 text-xs text-[#c43d3d]">
                       {errors.email.message}
                     </p>
                   )}
@@ -162,78 +197,101 @@ const Login = () => {
 
                 {/* Password */}
                 <div>
-                  <label
-                    htmlFor="password"
-                    className="block text-sm font-medium text-slate-700 mb-2"
-                  >
-                    Password
-                  </label>
+                  <div className="mb-2 flex items-center justify-between">
+                    <label
+                      htmlFor="password"
+                      className="block text-sm font-medium text-[#17231f]"
+                    >
+                      Password
+                    </label>
+
+                    <Link
+                      to="/forgot-password"
+                      className="text-sm font-medium text-[#173f35] transition hover:text-[#102e27]"
+                    >
+                      Forgot password?
+                    </Link>
+                  </div>
 
                   <div className="relative">
                     <Lock
                       size={18}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                      className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#68736c]"
                     />
 
                     <input
                       id="password"
                       type={showPassword ? "text" : "password"}
                       placeholder="Enter your password"
+                      autoComplete="current-password"
                       {...register("password")}
-                      className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-10 pr-11 text-sm outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
+                      className="w-full rounded-xl border border-[#dce5da] bg-[#f9fbf7] py-3 pl-11 pr-12 text-sm text-[#17231f] outline-none transition placeholder:text-[#9aa59f] focus:border-[#173f35] focus:bg-white focus:ring-2 focus:ring-[#e4f2de]"
                     />
 
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                      className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#68736c] transition hover:text-[#173f35]"
+                      aria-label={
+                        showPassword ? "Hide password" : "Show password"
+                      }
                     >
                       {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                     </button>
                   </div>
 
                   {errors.password && (
-                    <p className="mt-1.5 text-xs text-red-500">
+                    <p className="mt-1.5 text-xs text-[#c43d3d]">
                       {errors.password.message}
                     </p>
                   )}
                 </div>
 
-                {/* Submit Button */}
+                {/* Sign In */}
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full rounded-lg bg-emerald-600 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-60"
+                  className="w-full rounded-xl bg-[#173f35] py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#102e27] focus:outline-none focus:ring-2 focus:ring-[#79c267] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {isLoading ? "Signing in..." : "Sign In"}
                 </button>
               </form>
 
-              {/* Divider */}
-              <div className="flex items-center gap-3 my-6">
-                <div className="h-px flex-1 bg-slate-200" />
+              {/* ================= DIVIDER ================= */}
+              <div className="my-6 flex items-center gap-3">
+                <div className="h-px flex-1 bg-[#dce5da]" />
 
-                <span className="text-xs text-slate-400">OR</span>
+                <span className="text-xs font-medium text-[#9aa59f]">OR</span>
 
-                <div className="h-px flex-1 bg-slate-200" />
+                <div className="h-px flex-1 bg-[#dce5da]" />
               </div>
 
-              {/* Google Login */}
-              <div
-                className="w-full flex items-center justify-center gap-3 rounded-lg border border-slate-300 bg-white py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
-                ref={googleButtonRef}
-              />
-              {/* Register */}
-              <p className="mt-7 text-center text-sm text-slate-500">
-                Don't have an account?{" "}
-                <Link
-                  to="/register"
-                  className="font-medium text-emerald-600 hover:text-emerald-700"
-                >
-                  Create account
-                </Link>
-              </p>
+              {/* ================= GOOGLE ================= */}
+              <div className="flex w-full justify-center overflow-hidden">
+                <div
+                  ref={googleButtonRef}
+                  className="flex min-h-[42px] w-full justify-center"
+                />
+              </div>
+
+              {/* ================= REGISTER ================= */}
+              <div className="mt-7 border-t border-[#edf1eb] pt-6 text-center">
+                <p className="text-sm text-[#68736c]">
+                  Don't have an account?{" "}
+                  <Link
+                    to="/register"
+                    className="font-semibold text-[#173f35] transition hover:text-[#102e27]"
+                  >
+                    Create account
+                  </Link>
+                </p>
+              </div>
             </div>
+
+            {/* Footer */}
+            <p className="mt-5 text-center text-xs text-[#9aa59f]">
+              Secure access to your business finances
+            </p>
           </div>
         </div>
       </div>
