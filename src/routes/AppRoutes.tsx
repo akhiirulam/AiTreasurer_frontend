@@ -44,6 +44,8 @@ import Settings from "../pages/settings/Settings";
 import ResetPassword from "../pages/auth/ResetPassword";
 import ForgotPassword from "../pages/auth/ForgotPassword";
 
+import VerifyEmail from "../pages/auth/VerifyEmail";
+
 const AppRoutes = () => {
   return (
     <Routes>
@@ -58,6 +60,8 @@ const AppRoutes = () => {
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/google-login" element={<GoogleLogin />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
+
+      <Route path="/verify-email" element={<VerifyEmail />} />
 
       {/* ================================================= */}
       {/* OWNER ROUTES */}
