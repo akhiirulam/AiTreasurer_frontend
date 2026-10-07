@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Eye,
@@ -10,43 +10,40 @@ import {
   CheckCircle2,
 } from "lucide-react";
 
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import { authApi } from "../../services/auth.api";
+import {
+  registerSchema,
+  type RegisterFormData,
+} from "../../validations/register.schema";
 
 const Register = () => {
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    mobileNumber: "",
-    password: "",
-  });
-
   const [showPassword, setShowPassword] = useState(false);
-
   const [loading, setLoading] = useState(false);
-
   const [error, setError] = useState("");
-
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterFormData>({
+    resolver: zodResolver(registerSchema),
+    mode: "onBlur",
+  });
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const onSubmit = async (data: RegisterFormData) => {
     try {
       setLoading(true);
       setError("");
 
       await authApi.registerUser({
-        fullName: formData.fullName,
-        email: formData.email,
-        mobileNumber: formData.mobileNumber,
-        password: formData.password,
+        fullName: data.fullName,
+        email: data.email,
+        mobileNumber: data.mobileNumber,
+        password: data.password,
       });
 
       // Registration completed.
@@ -73,25 +70,21 @@ const Register = () => {
       <div className="flex min-h-screen items-center justify-center bg-[#f5f7f2] px-4 py-8">
         <div className="w-full max-w-md rounded-2xl border border-[#dce5da] bg-white p-6 text-center shadow-xl sm:p-8">
           {/* Logo */}
-
           <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-[#173f35] text-xl font-bold text-white">
             AT
           </div>
 
           {/* Success Icon */}
-
           <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-[#e4f2de]">
             <CheckCircle2 size={34} className="text-[#238636]" />
           </div>
 
           {/* Heading */}
-
           <h1 className="text-2xl font-bold text-[#17231f]">
             Check your email
           </h1>
 
           {/* Message */}
-
           <p className="mt-3 text-sm leading-6 text-[#68736c]">
             Your AiTreasurer account has been created.
           </p>
@@ -101,7 +94,13 @@ const Register = () => {
           </p>
 
           <p className="mt-2 break-all font-semibold text-[#173f35]">
-            {formData.email}
+            {/*
+              React Hook Form does not expose the submitted data
+              after submission through form state by default.
+
+              If you want to display the email here, we will handle
+              that separately below.
+            */}
           </p>
 
           <p className="mt-4 text-sm leading-6 text-[#68736c]">
@@ -109,7 +108,6 @@ const Register = () => {
           </p>
 
           {/* Login */}
-
           <Link
             to="/login"
             className="mt-7 inline-flex w-full items-center justify-center rounded-lg bg-[#173f35] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#102e27]"
@@ -118,7 +116,6 @@ const Register = () => {
           </Link>
 
           {/* Note */}
-
           <p className="mt-5 text-xs leading-5 text-[#68736c]">
             The verification link is valid for 24 hours.
           </p>
@@ -135,10 +132,8 @@ const Register = () => {
     <div className="flex min-h-screen items-center justify-center bg-[#f5f7f2] px-4 py-8">
       <div className="w-full max-w-md rounded-2xl border border-[#dce5da] bg-white p-6 shadow-xl sm:p-8">
         {/* HEADER */}
-
         <div className="mb-8 text-center">
           {/* Logo */}
-
           <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-[#173f35] text-lg font-bold text-white">
             AT
           </div>
@@ -150,8 +145,7 @@ const Register = () => {
           </p>
         </div>
 
-        {/* ERROR */}
-
+        {/* SERVER ERROR */}
         {error && (
           <div className="mb-5 rounded-lg border border-red-100 bg-red-50 px-4 py-3 text-sm text-[#c43d3d]">
             {error}
@@ -159,10 +153,12 @@ const Register = () => {
         )}
 
         {/* FORM */}
-
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-5"
+          noValidate
+        >
           {/* FULL NAME */}
-
           <div>
             <label className="mb-2 block text-sm font-medium text-[#17231f]">
               Full Name
@@ -176,18 +172,22 @@ const Register = () => {
 
               <input
                 type="text"
-                name="fullName"
-                value={formData.fullName}
-                onChange={handleChange}
+                {...register("fullName")}
                 placeholder="Enter your full name"
-                required
-                className="w-full rounded-lg border border-[#dce5da] bg-white py-3 pl-11 pr-4 text-[#17231f] outline-none transition placeholder:text-[#9aa49d] focus:border-[#173f35] focus:ring-1 focus:ring-[#173f35]"
+                className={`w-full rounded-lg border bg-white py-3 pl-11 pr-4 text-[#17231f] outline-none transition placeholder:text-[#9aa49d] focus:border-[#173f35] focus:ring-1 focus:ring-[#173f35] ${
+                  errors.fullName ? "border-red-400" : "border-[#dce5da]"
+                }`}
               />
             </div>
+
+            {errors.fullName && (
+              <p className="mt-1.5 text-xs text-red-500">
+                {errors.fullName.message}
+              </p>
+            )}
           </div>
 
           {/* EMAIL */}
-
           <div>
             <label className="mb-2 block text-sm font-medium text-[#17231f]">
               Email Address
@@ -201,18 +201,22 @@ const Register = () => {
 
               <input
                 type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
+                {...register("email")}
                 placeholder="Enter your email"
-                required
-                className="w-full rounded-lg border border-[#dce5da] bg-white py-3 pl-11 pr-4 text-[#17231f] outline-none transition placeholder:text-[#9aa49d] focus:border-[#173f35] focus:ring-1 focus:ring-[#173f35]"
+                className={`w-full rounded-lg border bg-white py-3 pl-11 pr-4 text-[#17231f] outline-none transition placeholder:text-[#9aa49d] focus:border-[#173f35] focus:ring-1 focus:ring-[#173f35] ${
+                  errors.email ? "border-red-400" : "border-[#dce5da]"
+                }`}
               />
             </div>
+
+            {errors.email && (
+              <p className="mt-1.5 text-xs text-red-500">
+                {errors.email.message}
+              </p>
+            )}
           </div>
 
           {/* MOBILE NUMBER */}
-
           <div>
             <label className="mb-2 block text-sm font-medium text-[#17231f]">
               Mobile Number
@@ -226,18 +230,22 @@ const Register = () => {
 
               <input
                 type="tel"
-                name="mobileNumber"
-                value={formData.mobileNumber}
-                onChange={handleChange}
+                {...register("mobileNumber")}
                 placeholder="Enter your mobile number"
-                required
-                className="w-full rounded-lg border border-[#dce5da] bg-white py-3 pl-11 pr-4 text-[#17231f] outline-none transition placeholder:text-[#9aa49d] focus:border-[#173f35] focus:ring-1 focus:ring-[#173f35]"
+                className={`w-full rounded-lg border bg-white py-3 pl-11 pr-4 text-[#17231f] outline-none transition placeholder:text-[#9aa49d] focus:border-[#173f35] focus:ring-1 focus:ring-[#173f35] ${
+                  errors.mobileNumber ? "border-red-400" : "border-[#dce5da]"
+                }`}
               />
             </div>
+
+            {errors.mobileNumber && (
+              <p className="mt-1.5 text-xs text-red-500">
+                {errors.mobileNumber.message}
+              </p>
+            )}
           </div>
 
           {/* PASSWORD */}
-
           <div>
             <label className="mb-2 block text-sm font-medium text-[#17231f]">
               Password
@@ -251,12 +259,11 @@ const Register = () => {
 
               <input
                 type={showPassword ? "text" : "password"}
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
+                {...register("password")}
                 placeholder="Create a password"
-                required
-                className="w-full rounded-lg border border-[#dce5da] bg-white py-3 pl-11 pr-12 text-[#17231f] outline-none transition placeholder:text-[#9aa49d] focus:border-[#173f35] focus:ring-1 focus:ring-[#173f35]"
+                className={`w-full rounded-lg border bg-white py-3 pl-11 pr-12 text-[#17231f] outline-none transition placeholder:text-[#9aa49d] focus:border-[#173f35] focus:ring-1 focus:ring-[#173f35] ${
+                  errors.password ? "border-red-400" : "border-[#dce5da]"
+                }`}
               />
 
               <button
@@ -267,10 +274,44 @@ const Register = () => {
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
             </div>
+
+            {errors.password && (
+              <p className="mt-1.5 text-xs text-red-500">
+                {errors.password.message}
+              </p>
+            )}
+          </div>
+
+          {/* CONFIRM PASSWORD */}
+          <div>
+            <label className="mb-2 block text-sm font-medium text-[#17231f]">
+              Confirm Password
+            </label>
+
+            <div className="relative">
+              <Lock
+                size={20}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-[#68736c]"
+              />
+
+              <input
+                type={showPassword ? "text" : "password"}
+                {...register("confirmPassword")}
+                placeholder="Confirm your password"
+                className={`w-full rounded-lg border bg-white py-3 pl-11 pr-4 text-[#17231f] outline-none transition placeholder:text-[#9aa49d] focus:border-[#173f35] focus:ring-1 focus:ring-[#173f35] ${
+                  errors.confirmPassword ? "border-red-400" : "border-[#dce5da]"
+                }`}
+              />
+            </div>
+
+            {errors.confirmPassword && (
+              <p className="mt-1.5 text-xs text-red-500">
+                {errors.confirmPassword.message}
+              </p>
+            )}
           </div>
 
           {/* SUBMIT */}
-
           <button
             type="submit"
             disabled={loading}
@@ -281,7 +322,6 @@ const Register = () => {
         </form>
 
         {/* LOGIN */}
-
         <p className="mt-6 text-center text-sm text-[#68736c]">
           Already have an account?{" "}
           <Link
